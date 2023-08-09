@@ -14,7 +14,12 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SimpleNoteModel extends GenericModel{
+public class SimpleNoteModel {
+    @Id
+    @Column
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
+
     @Column(name = "name", nullable = false)
     private String name;
 
