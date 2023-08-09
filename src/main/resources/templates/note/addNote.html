@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить заметку</title>
+</head>
+
+<body>
+<div>
+    <h1>Добавить заметку</h1>
+</div>
+
+<div>
+    <form method="post" th:action ="@{/note/add}" th:object="${noteForm}">
+        <div>
+            <span id="name">Название заметки</span>
+            <input name="name" type="text">
+        </div>
+        <div>
+            <span id="mainText">Текст заметки</span>
+            <textarea name="mainText" type="text"></textarea>
+        </div>
+
+
+        <button type="submit" >Добавить заметку</button>
+        <button type="button" onclick="window.history.back()">Назад</button>
+    </form>
+</div>
+
+</body>
+
+</html>

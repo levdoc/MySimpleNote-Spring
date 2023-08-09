@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+
+<head>
+    <meta charset="UTF-8">
+    <title>Мои заметки</title>
+</head>
+
+<body>
+<div>
+    <h1>Добро пожаловать на главную страницу!</h1>
+</div>
+
+<div>
+    <a href = "/note/add">Создать заметку</a>
+</div>
+
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>Текст заметки</th>
+            <th>Функции</th>
+        </tr>
+        </thead>
+        <tr th:each="notes:${notes}">
+            <td th:text = "${notes.getMainText()}"></td>
+            <th>Заглушка для удаления/редактирования</th>
+        </tr>
+    </table>
+</div>
+
+</body>
+
+</html>
