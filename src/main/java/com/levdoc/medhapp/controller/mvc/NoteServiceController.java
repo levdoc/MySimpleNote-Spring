@@ -3,10 +3,7 @@ package com.levdoc.medhapp.controller.mvc;
 import com.levdoc.medhapp.dto.SimpleNoteDTO;
 import com.levdoc.medhapp.service.SimpleNoteService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/note")
@@ -27,5 +24,13 @@ public class NoteServiceController {
         simpleNoteService.createNote(simpleNoteDTO);
         return "redirect:/";
     }
+
+    @GetMapping("/delete/{id}")
+    public String deleteNote (@PathVariable Long id) {
+        simpleNoteService.deleteNote(id);
+        return "redirect:/";
+    }
+
+
 
 }

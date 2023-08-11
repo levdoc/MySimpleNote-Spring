@@ -34,4 +34,8 @@ public class SimpleNoteService {
         return allNotes == null ? Collections.emptyList() : allNotes;
     }
 
+    public void deleteNote (Long id) {
+        simpleNoteRepository.deleteById(id);
+    }
+
 }

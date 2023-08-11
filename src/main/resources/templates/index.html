@@ -37,7 +37,9 @@
         </thead>
         <tr th:each="note:${notes}">
             <td th:text="${note.getMainText()}"></td>
-            <th>Заглушка для удаления/редактирования</th>
+            <th><a th:href="'/note/delete/' + ${note.getId()}"
+                   onclick="return confirm('Вы действительно хотите удалить заметку?')">Удалить</a>
+            </th>
         </tr>
     </table>
 </div>
