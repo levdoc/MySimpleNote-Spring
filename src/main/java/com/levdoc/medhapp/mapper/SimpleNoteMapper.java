@@ -3,6 +3,7 @@ package com.levdoc.medhapp.mapper;
 import com.levdoc.medhapp.dto.SimpleNoteDTO;
 import com.levdoc.medhapp.model.SimpleNoteModel;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;

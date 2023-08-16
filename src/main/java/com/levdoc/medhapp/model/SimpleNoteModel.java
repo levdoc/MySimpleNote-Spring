@@ -17,13 +17,10 @@ import java.time.LocalDate;
 public class SimpleNoteModel {
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
-
-    @Column(name = "main_text", nullable = false)
+    @Column(name = "main_text", nullable = false, length = 3000)
     private String mainText;
 
     @Column(name = "publish_date", nullable = false)

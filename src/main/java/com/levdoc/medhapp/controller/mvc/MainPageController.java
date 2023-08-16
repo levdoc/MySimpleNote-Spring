@@ -20,6 +20,11 @@ public class MainPageController {
     @GetMapping()
     public String index(Model model) {
         List<SimpleNoteDTO> notes = simpleNoteService.getAllNotes();
+
+        for (SimpleNoteDTO note : notes) {
+            note.setIdJS("'"+note.getId()+"'");
+        }
+
         model.addAttribute("notes", notes);
         return "index";
     }

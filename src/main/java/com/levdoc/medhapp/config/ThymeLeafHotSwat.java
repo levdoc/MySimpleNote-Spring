@@ -28,6 +28,7 @@ public class ThymeLeafHotSwat {
         fileTemplateResolver.setTemplateMode(thymeleafProperties.getMode());
         fileTemplateResolver.setCacheable(thymeleafProperties.isCache());
 
+
         return fileTemplateResolver;
     }
 

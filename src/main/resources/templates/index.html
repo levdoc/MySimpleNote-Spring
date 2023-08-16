@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="ru"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
     <meta charset="UTF-8">
     <title>Мои заметки</title>
 
     <script src="/webjars/bootstrap/5.3.0/js/bootstrap.min.js"></script>
-    <script src="webjars/jquery/3.7.0/jquery.min.js"></script>
-    <link href="webjars/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="/webjars/jquery/3.7.0/jquery.min.js"></script>
+    <link href="/webjars/bootstrap/5.3.0/css/bootstrap.css" rel="stylesheet" media="screen">
 
 </head>
 
@@ -19,6 +21,16 @@
     <br>
     <br>
 </div>
+<script>
+    function copyToClipboard(element) {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val($(element).text()).select();
+        document.execCommand("copy");
+        $temp.remove();
+    }
+
+</script>
 
 <div class="container">
     <div class="col-auto">
@@ -31,16 +43,31 @@
     <table class="table table-striped">
         <thead class="table-primary">
         <tr>
-            <th class="col">Текст заметки</th>
+            <th class="col text-md-center">Текст заметки</th>
             <th class="col-md-auto">Функции</th>
         </tr>
         </thead>
+
+
         <tr th:each="note:${notes}">
-            <td th:text="${note.getMainText()}"></td>
-            <th><a th:href="'/note/delete/' + ${note.getId()}"
-                   onclick="return confirm('Вы действительно хотите удалить заметку?')">Удалить</a>
-            </th>
+            <td th:utext="${note.getMainText()}" class="text-wrap" style="" th:id="${note.getId()}"></td>
+
+            <td>
+                <a class="btn btn-sm btn-outline-success"
+                   th:href="'/note/delete/' + ${note.getId()}">Удалить</a>
+                <button onclick="copyToClipboard('#55')">Копировать</button>
+
+<!--                <button type="button" id="copyToClipboardButton" class="btn btn-primary"-->
+<!--                        th:onclick="copyToClipboard([[${#strings.prepend(note.getId(),'#')}]])">Copy</button>-->
+
+                <button type="button" id="copyToClipboardButton" class="btn btn-primary"
+                        th:onclick="copyToClipboard([[${note.id}]]);">Copy</button>
+
+
+            </td>
+
         </tr>
+
     </table>
 </div>
 

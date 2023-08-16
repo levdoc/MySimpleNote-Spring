@@ -13,7 +13,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class SimpleNoteDTO {
     private Long id;
-    private String name;
     private String mainText;
     private LocalDate publishDate;
+
+    private String idJS;
+
 }
