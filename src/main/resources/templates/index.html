@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -21,15 +19,15 @@
     <br>
     <br>
 </div>
+
 <script>
     function copyToClipboard(element) {
         var $temp = $("<input>");
         $("body").append($temp);
-        $temp.val($(element).text()).select();
+        $temp.val($("#"+element).text()).select();
         document.execCommand("copy");
         $temp.remove();
     }
-
 </script>
 
 <div class="container">
@@ -48,26 +46,16 @@
         </tr>
         </thead>
 
-
         <tr th:each="note:${notes}">
-            <td th:utext="${note.getMainText()}" class="text-wrap" style="" th:id="${note.getId()}"></td>
-
+            <td th:utext="${note.getMainText()}"
+                class="text-wrap" style="" th:id="${note.getId()}"></td>
             <td>
                 <a class="btn btn-sm btn-outline-success"
                    th:href="'/note/delete/' + ${note.getId()}">Удалить</a>
-                <button onclick="copyToClipboard('#55')">Копировать</button>
-
-<!--                <button type="button" id="copyToClipboardButton" class="btn btn-primary"-->
-<!--                        th:onclick="copyToClipboard([[${#strings.prepend(note.getId(),'#')}]])">Copy</button>-->
-
-                <button type="button" id="copyToClipboardButton" class="btn btn-primary"
-                        th:onclick="copyToClipboard([[${note.id}]]);">Copy</button>
-
-
+                <button type="button" class="btn btn-primary"
+                th:attr="onclick=|copyToClipboard(${note.getId})|">Копировать</button>
             </td>
-
         </tr>
-
     </table>
 </div>
 

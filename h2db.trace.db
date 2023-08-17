@@ -1,8 +1,4 @@
-2023-08-13 17:28:39 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLDataException: Значение слишком длинное для поля "MAIN_TEXT CHARACTER VARYING(255)": "U&'\\0412 \\041c\\041a\\0411-10 \\043b\\0438\\0445\\043e\\0440\\0430\\0434\\043a\\0430 \\043d\\... (339)"
-Value too long for column "MAIN_TEXT CHARACTER VARYING(255)": "U&'\\0412 \\041c\\041a\\0411-10 \\043b\\0438\\0445\\043e\\0440\\0430\\0434\\043a\\0430 \\043d\\... (339)"; SQL statement:
-insert into notes (main_text,name,publish_date,id) values (?,?,?,?) [22001-214]
-2023-08-13 18:22:43 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLDataException: Значение слишком длинное для поля "MAIN_TEXT CHARACTER VARYING(3000)": "U&'<p style=""margin: 0.5em 0px; caret-color: #202122; color: #202122; font-famil... (3873)"
-Value too long for column "MAIN_TEXT CHARACTER VARYING(3000)": "U&'<p style=""margin: 0.5em 0px; caret-color: #202122; color: #202122; font-famil... (3873)"; SQL statement:
-insert into notes (main_text,name,publish_date,id) values (?,?,?,?) [22001-214]
+2023-08-17 21:24:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Значение слишком длинное для поля "MAIN_TEXT CHARACTER VARYING(3000)": "U&'<p style=""margin: 0.5em 0px; caret-color: #202122; color: #202122; font-famil... (7483)"
+Value too long for column "MAIN_TEXT CHARACTER VARYING(3000)": "U&'<p style=""margin: 0.5em 0px; caret-color: #202122; color: #202122; font-famil... (7483)"; SQL statement:
+insert into notes (main_text,publish_date,id) values (?,?,?) [22001-214]
