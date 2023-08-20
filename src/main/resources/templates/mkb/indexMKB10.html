@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Коды MKБ-10</title>
+
+    <script src="/webjars/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+    <script src="/webjars/jquery/3.7.0/jquery.min.js"></script>
+    <link href="/webjars/bootstrap/5.3.0/css/bootstrap.css" rel="stylesheet" media="screen">
+
+</head>
+
+<body>
+<div class="container-fluid">
+    <!--    <h1><p class="text-center">Добро пожаловать на главную страницу!</p></h1>-->
+    <br>
+    <br>
+    <br>
+</div>
+
+<div class="container">
+    <table class="table table-striped">
+        <thead class="table-primary">
+        <tr>
+            <th class="col text-md-center">Код МКБ-10</th>
+            <th class="col-md-auto">Расшифровка кода</th>
+            <th class="col-md-auto">В избранном?</th>
+        </tr>
+        </thead>
+
+        <tr th:each="mkb:${mkb10code}">
+
+            <td th:text="${mkb.getKodMkb()}"
+                class="text-wrap"></td>
+
+            <td th:text="${mkb.getDiseaseName()}"
+                class="text-wrap" style=""></td>
+
+            <td th:text="${mkb.getIsFavorite()}"
+                class="text-wrap" style=""></td>
+
+        </tr>
+    </table>
+</div>
+
+<div>
+    <nav aria-label="Pagination" th:if="${mkb10code.totalPages gt 0}">
+        <ul class="pagination justify-content-center font-weight-bold">
+            <li class="page-item" th:classappend="${mkb10code.number eq 0} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/mkb10?page={id}(id=${mkb10code.number lt 2 ? 1 : mkb10code.number})}"
+                   aria-label="Previous" title="Предыдущая страница" data-toggle="tooltip">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" th:classappend="${i eq mkb10code.number + 1} ? 'active'"
+                th:each="i : ${#numbers.sequence( 1, mkb10code.totalPages, 1)}">
+                <a class="page-link" th:href="@{/mkb10?page={id}(id=${i})}" th:text="${i}"
+                   th:title="${'Страница '+ i}" data-toggle="tooltip"></a>
+            </li>
+            <li class="page-item" th:classappend="${mkb10code.number eq mkb10code.totalPages - 1} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/mkb10?page={id}(id=${mkb10code.number + 2})}"
+                   aria-label="Next" title="Следующая страница" data-toggle="tooltip">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+</body>
+
+</html>
