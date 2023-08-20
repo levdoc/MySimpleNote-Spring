@@ -16,6 +16,4 @@ public class SimpleNoteDTO {
     private String mainText;
     private LocalDate publishDate;
 
-    private String idJS;
-
 }

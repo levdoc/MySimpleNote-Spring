@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SimpleNoteRepository
         extends GenericRepository<SimpleNoteModel> {
+
+    SimpleNoteModel findSimpleNoteModelById(Long id);
+
 }

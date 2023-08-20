@@ -4,6 +4,9 @@ import com.levdoc.medhapp.dto.SimpleNoteDTO;
 import com.levdoc.medhapp.mapper.SimpleNoteMapper;
 import com.levdoc.medhapp.model.SimpleNoteModel;
 import com.levdoc.medhapp.repository.SimpleNoteRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -34,8 +37,21 @@ public class SimpleNoteService {
         return allNotes == null ? Collections.emptyList() : allNotes;
     }
 
+    public Page<SimpleNoteDTO> getAllNotePegable (Pageable pageable) {
+        Page<SimpleNoteModel> notesPagineted = simpleNoteRepository.findAll(pageable);
+        List<SimpleNoteDTO> allNotes = simpleNoteMapper.modelsToDTOs(notesPagineted.getContent());
+        return new PageImpl<>(allNotes, pageable, notesPagineted.getTotalElements());
+    }
+
     public void deleteNote (Long id) {
         simpleNoteRepository.deleteById(id);
     }
 
+    public void updateNote (SimpleNoteDTO simpleNoteDTO) {
+        simpleNoteRepository.save(simpleNoteMapper.DToToModel(simpleNoteDTO));
+    }
+
+    public SimpleNoteDTO getOneById (Long id) {
+        return simpleNoteMapper.modelToDTO(simpleNoteRepository.findSimpleNoteModelById(id));
+    }
 }
