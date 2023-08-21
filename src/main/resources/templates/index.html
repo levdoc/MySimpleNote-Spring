@@ -1,94 +1,16 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Мои заметки</title>
-
-    <script src="/webjars/bootstrap/5.3.0/js/bootstrap.min.js"></script>
-    <script src="/webjars/jquery/3.7.0/jquery.min.js"></script>
-    <link href="/webjars/bootstrap/5.3.0/css/bootstrap.css" rel="stylesheet" media="screen">
-
+    <title>Заметки</title>
 </head>
 
 <body>
-<div class="container-fluid">
-    <!--    <h1><p class="text-center">Добро пожаловать на главную страницу!</p></h1>-->
-    <br>
-    <br>
-    <br>
-</div>
-
-<script>
-    function copyToClipboard(element) {
-        var $temp = $("<input>");
-        $("body").append($temp);
-        $temp.val($("#"+element).text()).select();
-        document.execCommand("copy");
-        $temp.remove();
-    }
-</script>
-
-<div class="container">
-    <div class="col-auto">
-        <button type="submit" onclick="document.location='/notes/add'"
-                class="btn btn-primary mb-3">Создать заметку
-        </button>
+    <div layout:fragment="content">
+        <h1>Добро пожаловать</h1>
     </div>
-</div>
-
-<div class="container">
-    <table class="table table-striped">
-        <thead class="table-primary">
-        <tr>
-            <th class="col text-md-center">Текст заметки</th>
-            <th class="col-md-auto">Функции</th>
-        </tr>
-        </thead>
-
-        <tr th:each="note:${notes}">
-            <td th:utext="${note.getMainText()}"
-                class="text-wrap" style="" th:id="${note.getId()}"></td>
-            <td>
-                <a class="btn btn-sm btn-outline-success"
-                   th:href="'/notes/update/' + ${note.getId()}">Редактировать</a>
-                <button type="button" class="btn btn-primary"
-                        th:attr="onclick=|copyToClipboard(${note.getId})|">Копировать</button>
-                <a class="btn btn-sm btn-outline-success"
-                   th:href="'/notes/delete/' + ${note.getId()}"
-                    onclick="return confirm('Вы действительно хотите удалить заметку?')">Удалить</a>
-            </td>
-        </tr>
-    </table>
-</div>
-
-<div>
-    <nav aria-label="Pagination" th:if="${notes.totalPages gt 0}">
-        <ul class="pagination justify-content-center font-weight-bold">
-            <li class="page-item" th:classappend="${notes.number eq 0} ? 'disabled'">
-                <a class="page-link"
-                   th:href="@{/notes?page={id}(id=${notes.number lt 2 ? 1 : notes.number})}"
-                   aria-label="Previous" title="Предыдущая страница" data-toggle="tooltip">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li class="page-item" th:classappend="${i eq notes.number + 1} ? 'active'"
-                th:each="i : ${#numbers.sequence( 1, notes.totalPages, 1)}">
-                <a class="page-link" th:href="@{/notes?page={id}(id=${i})}" th:text="${i}"
-                   th:title="${'Страница '+ i}" data-toggle="tooltip"></a>
-            </li>
-            <li class="page-item" th:classappend="${notes.number eq notes.totalPages - 1} ? 'disabled'">
-                <a class="page-link"
-                   th:href="@{/notes?page={id}(id=${notes.number + 2})}"
-                   aria-label="Next" title="Следующая страница" data-toggle="tooltip">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</div>
-
 </body>
 
 </html>

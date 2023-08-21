@@ -1,0 +1,27 @@
+<div xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.w3.org/1999/xhtml"
+     xmlns="http://www.w3.org/1999/html"
+
+     th:fragment="header">
+
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" href="/">На главную</a>
+    </li>
+
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Заметки</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="/notes">Все заметки</a></li>
+          <li><a class="dropdown-item" href="/notes/add">Добавить заметку</a></li>
+        </ul>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="#">Link</a>
+    </li>
+
+  </ul>
+  </ul>
+
+</div>

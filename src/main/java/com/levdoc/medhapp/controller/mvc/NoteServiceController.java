@@ -25,13 +25,13 @@ public class NoteServiceController {
     @PostMapping("/add")
     public String createNote(@ModelAttribute("noteForm") SimpleNoteDTO simpleNoteDTO) {
         simpleNoteService.createNote(simpleNoteDTO);
-        return "redirect:/";
+        return "redirect:/notes";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteNote (@PathVariable Long id) {
         simpleNoteService.deleteNote(id);
-        return "redirect:/";
+        return "redirect:/notes";
     }
 
     @GetMapping()
@@ -41,7 +41,7 @@ public class NoteServiceController {
         PageRequest pageRequest = PageRequest.of(page-1, pageSize);
         Page<SimpleNoteDTO> notes = simpleNoteService.getAllNotePegable(pageRequest);
         model.addAttribute("notes", notes);
-        return "index";
+        return "note/index";
     }
 
     @GetMapping("/update/{id}")
@@ -54,7 +54,7 @@ public class NoteServiceController {
     @PostMapping("/update")
     public String updateNote (@ModelAttribute("updateNote") SimpleNoteDTO simpleNoteDTO) {
         simpleNoteService.updateNote(simpleNoteDTO);
-        return "redirect:/";
+        return "redirect:/notes";
     }
 
 }

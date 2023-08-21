@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta charset="UTF-8">
+  <title>Заметки</title>
+
+  <script src="/webjars/bootstrap/5.3.0/js/bootstrap.bundle.js"></script>
+  <link href="/webjars/bootstrap/5.3.0/css/bootstrap.css" rel="stylesheet" media="screen"/>
+  <script src="/webjars/jquery/3.7.0/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+<main class="content-wrapper">
+  <!--header -->
+  <div th:replace="~{header :: header}"></div>
+
+  <!--content -->
+  <div class="container">
+    <div layout:fragment="content">
+      <h1>Если Вы это видете - то что-то пошло не так =)</h1>
+    </div>
+  </div>
+
+  <!--footer -->
+  <div th:replace="~{footer :: footer}"></div>
+</main>
+
+</body>
+
+</html>
