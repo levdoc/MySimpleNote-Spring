@@ -13,9 +13,7 @@
 <body>
 <div layout:fragment="content">
 
-    <script src="/webjars/tinymce/4.7.9/tinymce.min.js"></script>
-
-
+    <script src="/webjars/tinymce/5.0.9/tinymce.min.js" ></script>
 
     <h5><p class="text-center">Добавить заметку</p></h5>
 
@@ -27,8 +25,12 @@
             <script type="text/javascript">
                 tinyMCE.init({
                     mode : "textareas",
-                    theme : "modern",
+                    theme : "silver",
                     menubar: false,
+                    // language:"ru",
+                    // plugins: "autoresize, charmap, colorpicker, contextmenu, paste, print, preview," +
+                    //     "quickbar, save, searchreplace, table, textcolor, wordcount",
+
                     setup: function (ed) {
                         ed.on('keyup', function (e) {
                             var count = CountCharacters();
