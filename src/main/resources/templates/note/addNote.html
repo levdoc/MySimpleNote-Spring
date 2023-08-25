@@ -8,36 +8,66 @@
     <meta charset="UTF-8">
     <title>Добавить заметку</title>
 
-    <script src="/webjars/tinymce/4.7.9/tinymce.min.js"></script>
-
 </head>
 
 <body>
 <div layout:fragment="content">
+
+    <script src="/webjars/tinymce/4.7.9/tinymce.min.js"></script>
+
+
 
     <h5><p class="text-center">Добавить заметку</p></h5>
 
     <form method="post" th:action="@{/notes/add}" th:object="${noteForm}">
 
         <div class="form-group">
-            <label for="mainText" id="mainText"></label>
+            <label for="mainText" id="mainTextLabel"></label>
 
             <script type="text/javascript">
                 tinyMCE.init({
                     mode : "textareas",
                     theme : "modern",
-                    menubar: false
+                    menubar: false,
+                    setup: function (ed) {
+                        ed.on('keyup', function (e) {
+                            var count = CountCharacters();
+                            document.getElementById("character_count")
+                                .innerHTML = "Введено символов: " + count;
+                        })
+                    }
                 });
             </script>
 
-            <textarea name="mainText" type="text" rows="10"></textarea>
+            <textarea id="mainText" name="mainText" type="text" rows="10"></textarea>
+            <div id="character_count"></div>
 
         </div>
 
+        <script>
+
+            function ValidateCharacterLength() {
+                var max = 2800;
+                var count = CountCharacters();
+                if (count > max) {
+                    alert("Введено максимальное количество символов (" + max + ")")
+                    return false;
+                }
+                return;
+            }
+
+            function CountCharacters() {
+                var body = tinymce.get("mainText").getBody();
+                var content = tinymce.trim(body.innerText || body.textContent);
+                return content.length;
+            }
+
+        </script>
+
         <br>
         <br>
 
-        <button type="submit" class="btn btn-primary btn-sm">Добавить заметку</button>
+        <button type="submit" class="btn btn-primary btn-sm" onclick="return ValidateCharacterLength()">Добавить заметку</button>
         <button type="button" class="btn btn-secondary btn-sm" onclick="window.history.back()">Назад</button>
 
     </form>
