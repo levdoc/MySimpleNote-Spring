@@ -4,6 +4,7 @@ import com.levdoc.medhapp.dto.SimpleNoteDTO;
 import com.levdoc.medhapp.model.SimpleNoteModel;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -16,6 +17,4 @@ public interface SimpleNoteMapper {
     SimpleNoteModel DToToModel (SimpleNoteDTO simpleNoteDTO);
     List<SimpleNoteDTO> modelsToDTOs (List<SimpleNoteModel> simpleNoteModelList);
     List<SimpleNoteModel> DTOsToModels (List<SimpleNoteDTO> simpleNoteDTOList);
-
-
 }

@@ -8,65 +8,73 @@
     <meta charset="UTF-8">
     <title>Редактировать заметку</title>
 
-    <script src="/webjars/tinymce/5.0.9/tinymce.min.js" ></script>
+    <script src="/webjars/tinymce/5.0.9/tinymce.min.js"></script>
 
 </head>
 
 <body>
 <div layout:fragment="content">
 
+    <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show text-center message"
+         role="alert">
+        [[${message}]]
+        <button type="button" class="close btn-sm" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
     <h5><p class="text-center">Редактировать заметку</p></h5>
 
-    <form method="post" th:action="@{/notes/update}" th:object="${noteForm}">
-        <input type="hidden" name="id" th:value="${note.id}">
-        <input type="hidden" name="publishDate" th:value="${note.publishDate}">
+        <form method="post" th:action="@{/notes/update}" th:object="${noteForm}">
+            <input type="hidden" name="id" th:value="${note.id}">
+            <input type="hidden" name="publishDate" th:value="${note.publishDate}">
 
-        <div class="form-group">
-            <script type="text/javascript">
-                tinyMCE.init({
-                    mode : "textareas",
-                    theme : "silver",
-                    menubar: false,
+            <div class="form-group">
+                <script type="text/javascript">
+                    tinyMCE.init({
+                        mode: "textareas",
+                        theme: "silver",
+                        menubar: false,
 
-                    setup: function (ed) {
-                        ed.on('keyup', function (e) {
-                            var count = CountCharacters();
-                            document.getElementById("character_count")
-                                .innerHTML = "Введено символов: " + count;
-                        })
-                    }
-                });
-            </script>
+                        setup: function (ed) {
+                            ed.on('keyup', function (e) {
+                                var count = CountCharacters();
+                                document.getElementById("character_count")
+                                    .innerHTML = "Введено символов: " + count;
+                            })
+                        }
+                    });
+                </script>
 
-            <textarea name="mainText" type="text" rows="10" th:text="${note.getMainText()}"></textarea>
-            <div id="character_count"></div>
+                <textarea name="mainText" type="text" rows="10" th:text="${note.getMainText()}"></textarea>
+                <div id="character_count"></div>
 
-        </div>
+            </div>
 
-        <script>
-            function ValidateCharacterLength() {
-                var max = 2800;
-                var count = CountCharacters();
-                if (count > max) {
-                    alert("Введено максимальное количество символов (" + max + ")")
-                    return false;
-                }
-                return;
+    <script>
+        function ValidateCharacterLength() {
+            var max = 2800;
+            var count = CountCharacters();
+            if (count > max) {
+                alert("Введено максимальное количество символов (" + max + ")")
+                return false;
             }
+            return;
+        }
 
-            function CountCharacters() {
-                var body = tinymce.get("mainText").getBody();
-                var content = tinymce.trim(body.innerText || body.textContent);
-                return content.length;
-            }
+        function CountCharacters() {
+            var body = tinymce.get("mainText").getBody();
+            var content = tinymce.trim(body.innerText || body.textContent);
+            return content.length;
+        }
 
-        </script>
+    </script>
 
-        <br>
-        <br>
+    <br>
+    <br>
 
-        <button type="submit" class="btn btn-primary btn-sm">Сохранить изменения</button>
-        <button type="button" class="btn btn-secondary btn-sm" onclick="window.history.back()">Назад</button>
+    <button type="submit" class="btn btn-primary btn-sm">Сохранить изменения</button>
+    <button type="button" class="btn btn-secondary btn-sm" onclick="window.history.back()">Назад</button>
 
     </form>
 </div>

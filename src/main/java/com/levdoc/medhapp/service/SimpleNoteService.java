@@ -43,6 +43,12 @@ public class SimpleNoteService {
         return new PageImpl<>(allNotes, pageable, notesPagineted.getTotalElements());
     }
 
+    public Page<SimpleNoteDTO> findNotePegable (String keyword, Pageable pageable) {
+        Page<SimpleNoteModel> notesPagineted = simpleNoteRepository.findByMainTextContainingIgnoreCase(keyword, pageable);
+        List<SimpleNoteDTO> notes = simpleNoteMapper.modelsToDTOs(notesPagineted.getContent());
+        return new PageImpl<>(notes, pageable, notesPagineted.getTotalElements());
+    }
+
     public void deleteNote (Long id) {
         simpleNoteRepository.deleteById(id);
     }

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Executable;
+
 @Controller
 @RequestMapping("/notes")
 public class NoteServiceController {
@@ -29,30 +31,45 @@ public class NoteServiceController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteNote (@PathVariable Long id) {
+    public String deleteNote(@PathVariable Long id) {
         simpleNoteService.deleteNote(id);
         return "redirect:/notes";
     }
 
     @GetMapping()
-    public String index(@RequestParam(value = "page", defaultValue = "1") int page,
+    public String index(@RequestParam(required = false) String keyword,
+                        @RequestParam(value = "page", defaultValue = "1") int page,
                         @RequestParam(value = "size", defaultValue = "5") int pageSize,
                         Model model) {
-        PageRequest pageRequest = PageRequest.of(page-1, pageSize);
-        Page<SimpleNoteDTO> notes = simpleNoteService.getAllNotePegable(pageRequest);
-        model.addAttribute("notes", notes);
+
+        try {
+            PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+            Page<SimpleNoteDTO> notes;
+            if (keyword == null) {
+                notes = simpleNoteService.getAllNotePegable(pageRequest);
+            } else {
+                notes = simpleNoteService.findNotePegable(keyword, pageRequest);
+            }
+            model.addAttribute("notes", notes);
+        } catch (Exception e) {
+            model.addAttribute("message", e.getMessage());
+        }
         return "note/index";
     }
 
     @GetMapping("/update/{id}")
-    public String updateNote (@PathVariable Long id,
-                              Model model) {
-        model.addAttribute("note", simpleNoteService.getOneById(id));
+    public String updateNote(@PathVariable Long id,
+                             Model model) {
+        try {
+            model.addAttribute("note", simpleNoteService.getOneById(id));
+        } catch (Exception e) {
+            model.addAttribute("message", e.getMessage());
+        }
         return "note/updateNote";
     }
 
     @PostMapping("/update")
-    public String updateNote (@ModelAttribute("updateNote") SimpleNoteDTO simpleNoteDTO) {
+    public String updateNote(@ModelAttribute("updateNote") SimpleNoteDTO simpleNoteDTO) {
         simpleNoteService.updateNote(simpleNoteDTO);
         return "redirect:/notes";
     }

@@ -12,7 +12,7 @@
 <body>
 <div layout:fragment="content">
 
-    <script>
+    <script type="text/javascript">
         function copyToClipboard(element) {
             var $temp = $("<input>");
             $("body").append($temp);
@@ -21,16 +21,42 @@
             $temp.remove();
         }
     </script>
+    <script>
+        $(document).ready(function () {
+            $("#btnClear").on("click", function (e) {
+                e.preventDefault();
+                $("#keyword").text("");
+                window.location = "[[@{/notes}]]";
+            });
+        })
+    </script>
 
-    <div class="container">
-        <br>
-        <div class="col-auto">
-            <button type="submit" onclick="document.location='/notes/add'"
-                    class="btn btn-primary btn-sm">Создать заметку
-            </button>
-        </div>
-        <br>
+    <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show text-center message"
+         role="alert">
+        [[${message}]]
+        <button type="button" class="close btn-sm" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
+
+    <div>
+        <br>
+        <form th:action="@{/notes}" id="searchForm">
+            <div class="list-inline">
+                    <div class="search-tag-link">
+                        <input id="keyword" type="search" name="keyword" th:value="${keyword}" required class="form-control"
+                               placeholder="Поле для поиска">
+                        <br>
+                        <button type="submit" class="btn btn-info">Поиск</button>
+                        <button id="btnClear" class="btn btn-secondary">Сброс</button>
+                        <br>
+                        <br>
+                    </div>
+            </div>
+        </form>
+    </div>
+
+
 
     <div class="table-responsive">
         <table class="table table-striped table-bordered">
@@ -48,12 +74,12 @@
                     <div class="text-md-end">
                         <button type="button" class="btn btn-primary btn-sm"
                                 th:attr="onclick=|copyToClipboard(${note.getId})|">Копировать
-                        </button>
+                        </button><p></p>
                         <a class="btn btn-sm btn-warning"
-                           th:href="'/notes/update/' + ${note.getId()}">Редактировать</a>
+                           th:href="'/notes/update/' + ${note.getId()}">Редактировать</a><p></p>
                         <a class="btn btn-sm btn-outline-danger"
                            th:href="'/notes/delete/' + ${note.getId()}"
-                           onclick="return confirm('Вы действительно хотите удалить заметку?')">Удалить</a>
+                           onclick="return confirm('Вы действительно хотите удалить заметку?')">Удалить</a><p></p>
                     </div>
                 </td>
             </tr>
