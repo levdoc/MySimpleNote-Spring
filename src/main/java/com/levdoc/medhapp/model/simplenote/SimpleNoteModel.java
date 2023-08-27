@@ -1,4 +1,4 @@
-package com.levdoc.medhapp.model;
+package com.levdoc.medhapp.model.simplenote;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,5 +25,9 @@ public class SimpleNoteModel {
 
     @Column(name = "publish_date", nullable = false)
     private LocalDate publishDate;
+
+    @Column(name = "type_of_note", nullable = false)
+    @Enumerated
+    private TypeOfNote typeOfNote;
 
 }

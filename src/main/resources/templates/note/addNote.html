@@ -15,11 +15,27 @@
 
     <script src="/webjars/tinymce/5.0.9/tinymce.min.js" ></script>
 
+    <br>
+
     <h5><p class="text-center">Добавить заметку</p></h5>
 
     <form method="post" th:action="@{/notes/add}" th:object="${noteForm}">
 
         <div class="form-group">
+
+            <div class="col-md">
+                <div class="form-floating">
+                    <select class="form-select" name="typeOfNote" id="typeOfNote" required>
+                        <option selected value="default">Выберете тип заметки из списка</option>
+                        <option th:each="typeOfNote : ${T(com.levdoc.medhapp.model.simplenote.TypeOfNote).values()}"
+                                th:value="${typeOfNote}" th:text="${typeOfNote.getTypeOfNoteTextDisplay()}"></option>
+                    </select>
+                    <label for="typeOfNote">Тип заметки</label>
+                    <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                </div>
+            </div>
+
+
             <label for="mainText" id="mainTextLabel"></label>
 
             <script type="text/javascript">

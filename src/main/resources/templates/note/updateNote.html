@@ -28,6 +28,7 @@
         <form method="post" th:action="@{/notes/update}" th:object="${noteForm}">
             <input type="hidden" name="id" th:value="${note.id}">
             <input type="hidden" name="publishDate" th:value="${note.publishDate}">
+            <input type="hidden" name="typeOfNote" th:value="${note.getTypeOfNote()}">
 
             <div class="form-group">
                 <script type="text/javascript">

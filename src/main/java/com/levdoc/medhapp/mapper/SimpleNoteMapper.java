@@ -1,10 +1,9 @@
 package com.levdoc.medhapp.mapper;
 
 import com.levdoc.medhapp.dto.SimpleNoteDTO;
-import com.levdoc.medhapp.model.SimpleNoteModel;
+import com.levdoc.medhapp.model.simplenote.SimpleNoteModel;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 

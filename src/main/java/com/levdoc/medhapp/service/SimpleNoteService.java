@@ -2,7 +2,7 @@ package com.levdoc.medhapp.service;
 
 import com.levdoc.medhapp.dto.SimpleNoteDTO;
 import com.levdoc.medhapp.mapper.SimpleNoteMapper;
-import com.levdoc.medhapp.model.SimpleNoteModel;
+import com.levdoc.medhapp.model.simplenote.SimpleNoteModel;
 import com.levdoc.medhapp.repository.SimpleNoteRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

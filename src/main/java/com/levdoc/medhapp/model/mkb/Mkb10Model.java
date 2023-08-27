@@ -1,12 +1,10 @@
-package com.levdoc.medhapp.model;
+package com.levdoc.medhapp.model.mkb;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "mkb10")

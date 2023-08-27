@@ -1,6 +1,6 @@
 package com.levdoc.medhapp.repository;
 
-import com.levdoc.medhapp.model.SimpleNoteModel;
+import com.levdoc.medhapp.model.simplenote.SimpleNoteModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;

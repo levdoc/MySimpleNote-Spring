@@ -1,9 +1,7 @@
 package com.levdoc.medhapp.mapper;
 
 import com.levdoc.medhapp.dto.Mkb10Dto;
-import com.levdoc.medhapp.dto.SimpleNoteDTO;
-import com.levdoc.medhapp.model.Mkb10Model;
-import com.levdoc.medhapp.model.SimpleNoteModel;
+import com.levdoc.medhapp.model.mkb.Mkb10Model;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

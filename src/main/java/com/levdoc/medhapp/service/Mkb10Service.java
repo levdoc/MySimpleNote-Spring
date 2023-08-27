@@ -2,7 +2,7 @@ package com.levdoc.medhapp.service;
 
 import com.levdoc.medhapp.dto.Mkb10Dto;
 import com.levdoc.medhapp.mapper.Mkb10Mapper;
-import com.levdoc.medhapp.model.Mkb10Model;
+import com.levdoc.medhapp.model.mkb.Mkb10Model;
 import com.levdoc.medhapp.repository.Mkb10Repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
