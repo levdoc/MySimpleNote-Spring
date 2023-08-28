@@ -8,12 +8,14 @@
     <meta charset="UTF-8">
     <title>Добавить заметку</title>
 
+    <script type="text/javascript" th:src="@{/js/ValidateCharacterLength.js}"></script>
+    <script type="text/javascript" th:src="@{/js/CountCharacters.js}"></script>
+    <script src="/webjars/tinymce/5.0.9/tinymce.min.js"></script>
+
 </head>
 
 <body>
 <div layout:fragment="content">
-
-    <script src="/webjars/tinymce/5.0.9/tinymce.min.js" ></script>
 
     <br>
 
@@ -40,8 +42,8 @@
 
             <script type="text/javascript">
                 tinyMCE.init({
-                    mode : "textareas",
-                    theme : "silver",
+                    mode: "textareas",
+                    theme: "silver",
                     menubar: false,
                     // language:"ru",
                     // plugins: "autoresize, charmap, colorpicker, contextmenu, paste, print, preview," +
@@ -62,33 +64,15 @@
 
         </div>
 
-        <script>
-
-            function ValidateCharacterLength() {
-                var max = 2800;
-                var count = CountCharacters();
-                if (count > max) {
-                    alert("Введено максимальное количество символов (" + max + ")")
-                    return false;
-                }
-                return;
-            }
-
-            function CountCharacters() {
-                var body = tinymce.get("mainText").getBody();
-                var content = tinymce.trim(body.innerText || body.textContent);
-                return content.length;
-            }
-
-        </script>
-
         <br>
         <br>
 
-        <button type="submit" class="btn btn-primary btn-sm" onclick="return ValidateCharacterLength()">Добавить заметку</button>
+        <button type="submit" class="btn btn-primary btn-sm" onclick="return ValidateCharacterLength()">Добавить
+            заметку
+        </button>
         <button type="button" class="btn btn-secondary btn-sm" onclick="window.history.back()">Назад</button>
-
     </form>
+
 </div>
 
 </body>

@@ -9,6 +9,8 @@
     <title>Редактировать заметку</title>
 
     <script src="/webjars/tinymce/5.0.9/tinymce.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/ValidateCharacterLength.js}"></script>
+    <script type="text/javascript" th:src="@{/js/CountCharacters.js}"></script>
 
 </head>
 
@@ -51,25 +53,6 @@
                 <div id="character_count"></div>
 
             </div>
-
-    <script>
-        function ValidateCharacterLength() {
-            var max = 2800;
-            var count = CountCharacters();
-            if (count > max) {
-                alert("Введено максимальное количество символов (" + max + ")")
-                return false;
-            }
-            return;
-        }
-
-        function CountCharacters() {
-            var body = tinymce.get("mainText").getBody();
-            var content = tinymce.trim(body.innerText || body.textContent);
-            return content.length;
-        }
-
-    </script>
 
     <br>
     <br>
