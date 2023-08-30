@@ -7,7 +7,7 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {PatientMapper.class})
 public interface EmergencyNotificationMapper {
 
     EmergencyNotificationMapper EMERGENCY_NOTIFICATION_MAPPER = Mappers.getMapper(EmergencyNotificationMapper.class);
