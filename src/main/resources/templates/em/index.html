@@ -6,94 +6,106 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Мои заметки</title>
+    <title>Экстреные извещения</title>
 
-    <script type="text/javascript" th:src="@{/js/ButtonCleanOnFindNotes.js}"></script>
-    <script type="text/javascript" th:src="@{/js/CopyNoteTextToClipboard.js}"></script>
+<!--    <script type="text/javascript" th:src="@{/js/ButtonCleanOnFindNotes.js}"></script>-->
+<!--    <script type="text/javascript" th:src="@{/js/CopyNoteTextToClipboard.js}"></script>-->
 
 </head>
 
 <body>
+
 <div layout:fragment="content">
 
-    <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show text-center message"
-         role="alert">
-        [[${message}]]
-        <button type="button" class="close btn-sm" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+    <br>
 
-    <div>
-        <br>
-        <form th:action="@{/notes}" id="searchForm">
-            <div class="list-inline">
-                    <div class="search-tag-link">
-                        <input id="keyword" type="search" name="keyword" th:value="${keyword}" required class="form-control"
-                               placeholder="Поле для поиска">
-                        <br>
-                        <button type="submit" class="btn btn-info">Поиск</button>
-                        <button id="btnClear" class="btn btn-secondary">Сброс</button>
-                        <br>
-                        <br>
-                    </div>
-            </div>
-        </form>
-    </div>
+<!--    <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show text-center message"-->
+<!--         role="alert">-->
+<!--        [[${message}]]-->
+<!--        <button type="button" class="close btn-sm" data-dismiss="alert" aria-label="Close">-->
+<!--            <span aria-hidden="true">&times;</span>-->
+<!--        </button>-->
+<!--    </div>-->
+
+<!--    <div>-->
+<!--        <br>-->
+<!--        <form th:action="@{/notes}" id="searchForm">-->
+<!--            <div class="list-inline">-->
+<!--                    <div class="search-tag-link">-->
+<!--                        <input id="keyword" type="search" name="keyword" th:value="${keyword}" required class="form-control"-->
+<!--                               placeholder="Поле для поиска">-->
+<!--                        <br>-->
+<!--                        <button type="submit" class="btn btn-info">Поиск</button>-->
+<!--                        <button id="btnClear" class="btn btn-secondary">Сброс</button>-->
+<!--                        <br>-->
+<!--                        <br>-->
+<!--                    </div>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
 
     <div class="table-responsive">
         <table class="table table-striped table-bordered">
             <thead class="table-primary">
             <tr>
-                <th class="col text-md-center col-md-8">Текст заметки</th>
-                <th class="col-md-4 text-md-end">Функции</th>
+                <th class="">ИД</th>
+                <th class="">Доктор</th>
+                <th class="">Отправлен</th>
+                <th class="">Загружен</th>
+                <th class="">Количество пациентов</th>
+                <th class="">Пациенты</th>
             </tr>
             </thead>
 
-            <tr th:each="note:${notes}">
-                <td th:utext="${note.getMainText()}"
-                    class="text-wrap" th:id="${note.getId()}"></td>
-                <td>
-                    <div class="text-md-end">
-                        <button type="button" class="btn btn-primary btn-sm"
-                                th:attr="onclick=|copyToClipboard(${note.getId})|">Копировать
-                        </button><p></p>
-                        <a class="btn btn-sm btn-warning"
-                           th:href="'/notes/update/' + ${note.getId()}">Редактировать</a><p></p>
-                        <a class="btn btn-sm btn-outline-danger"
-                           th:href="'/notes/delete/' + ${note.getId()}"
-                           onclick="return confirm('Вы действительно хотите удалить заметку?')">Удалить</a><p></p>
-                    </div>
-                </td>
+            <tr th:each="eme:${em}">
+                <td th:text="${eme.getId()}"></td>
+                <td th:text="${eme.getDocFio()}"></td>
+                <td th:text="${eme.isSend}"></td>
+                <td th:text="${eme.isDownload}"></td>
+                <td th:text="${eme.getPatientList().size()}"></td>
+                <td></td>
+<!--                <td>-->
+
+<!--                    <div class="text-md-end">-->
+<!--                        <button type="button" class="btn btn-primary btn-sm"-->
+<!--                                th:attr="onclick=|copyToClipboard(${note.getId})|">Копировать-->
+<!--                        </button><p></p>-->
+<!--                        <a class="btn btn-sm btn-warning"-->
+<!--                           th:href="'/notes/update/' + ${note.getId()}">Редактировать</a><p></p>-->
+<!--                        <a class="btn btn-sm btn-outline-danger"-->
+<!--                           th:href="'/notes/delete/' + ${note.getId()}"-->
+<!--                           onclick="return confirm('Вы действительно хотите удалить заметку?')">Удалить</a><p></p>-->
+<!--                    </div>-->
+<!--                </td>-->
             </tr>
         </table>
     </div>
 
-    <div>
-        <nav aria-label="Pagination" th:if="${notes.totalPages gt 0}">
-            <ul class="pagination justify-content-center font-weight-bold">
-                <li class="page-item" th:classappend="${notes.number eq 0} ? 'disabled'">
-                    <a class="page-link"
-                       th:href="@{/notes?page={id}(id=${notes.number lt 2 ? 1 : notes.number})}"
-                       aria-label="Previous" title="Предыдущая страница" data-toggle="tooltip">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item" th:classappend="${i eq notes.number + 1} ? 'active'"
-                    th:each="i : ${#numbers.sequence( 1, notes.totalPages, 1)}">
-                    <a class="page-link" th:href="@{/notes?page={id}(id=${i})}" th:text="${i}"
-                       th:title="${'Страница '+ i}" data-toggle="tooltip"></a>
-                </li>
-                <li class="page-item" th:classappend="${notes.number eq notes.totalPages - 1} ? 'disabled'">
-                    <a class="page-link"
-                       th:href="@{/notes?page={id}(id=${notes.number + 2})}"
-                       aria-label="Next" title="Следующая страница" data-toggle="tooltip">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+<!--    <div>-->
+<!--        <nav aria-label="Pagination" th:if="${notes.totalPages gt 0}">-->
+<!--            <ul class="pagination justify-content-center font-weight-bold">-->
+<!--                <li class="page-item" th:classappend="${notes.number eq 0} ? 'disabled'">-->
+<!--                    <a class="page-link"-->
+<!--                       th:href="@{/notes?page={id}(id=${notes.number lt 2 ? 1 : notes.number})}"-->
+<!--                       aria-label="Previous" title="Предыдущая страница" data-toggle="tooltip">-->
+<!--                        <span aria-hidden="true">&laquo;</span>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li class="page-item" th:classappend="${i eq notes.number + 1} ? 'active'"-->
+<!--                    th:each="i : ${#numbers.sequence( 1, notes.totalPages, 1)}">-->
+<!--                    <a class="page-link" th:href="@{/notes?page={id}(id=${i})}" th:text="${i}"-->
+<!--                       th:title="${'Страница '+ i}" data-toggle="tooltip"></a>-->
+<!--                </li>-->
+<!--                <li class="page-item" th:classappend="${notes.number eq notes.totalPages - 1} ? 'disabled'">-->
+<!--                    <a class="page-link"-->
+<!--                       th:href="@{/notes?page={id}(id=${notes.number + 2})}"-->
+<!--                       aria-label="Next" title="Следующая страница" data-toggle="tooltip">-->
+<!--                        <span aria-hidden="true">&raquo;</span>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </nav>-->
+<!--    </div>-->
 </div>
 
 </body>
