@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EmergencyNotificationRepository
         extends GenericRepository<EmergencyNotification>{
+
+    EmergencyNotification getEmergencyNotificationById(Long id);
+
 }

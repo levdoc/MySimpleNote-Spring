@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,5 +18,13 @@ public abstract class GenericModel {
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(name = "created_when")
+    private LocalDateTime createdWhen;
+
+    @Column(name = "send_when")
+    private LocalDateTime sendWhen;
+
+
 
 }

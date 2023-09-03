@@ -11,8 +11,7 @@ import java.util.List;
 @Setter
 @ToString
 @NoArgsConstructor
-public class EmergencyNotificationDTO {
-    private Long id;
+public class EmergencyNotificationDTO extends GenericModelDTO{
     private Long innMo;
     private String moName;
     private String docFio;

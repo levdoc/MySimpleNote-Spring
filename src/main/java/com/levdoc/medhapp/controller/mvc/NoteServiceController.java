@@ -8,8 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Executable;
-
 @Controller
 @RequestMapping("/notes")
 public class NoteServiceController {
@@ -71,7 +69,7 @@ public class NoteServiceController {
     @PostMapping("/update")
     public String updateNote(@ModelAttribute("updateNote") SimpleNoteDTO simpleNoteDTO) {
         simpleNoteService.updateNote(simpleNoteDTO);
-        return "redirect:/notes";
+        return "redirect:/em";
     }
 
 }

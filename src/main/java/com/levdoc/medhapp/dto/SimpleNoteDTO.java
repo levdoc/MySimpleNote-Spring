@@ -1,10 +1,7 @@
 package com.levdoc.medhapp.dto;
 
 import com.levdoc.medhapp.model.simplenote.TypeOfNote;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -12,8 +9,9 @@ import java.time.LocalDate;
 @Setter
 @ToString
 @NoArgsConstructor
-public class SimpleNoteDTO {
-    private Long id;
+@AllArgsConstructor
+public class SimpleNoteDTO
+        extends GenericModelDTO{
     private String mainText;
     private LocalDate publishDate;
     private TypeOfNote typeOfNote;

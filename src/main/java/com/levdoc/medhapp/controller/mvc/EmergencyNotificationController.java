@@ -4,8 +4,7 @@ import com.levdoc.medhapp.dto.EmergencyNotificationDTO;
 import com.levdoc.medhapp.service.EmergencyNotificationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +23,26 @@ public class EmergencyNotificationController {
         List<EmergencyNotificationDTO> result = emergencyNotificationService.getAllEmergencyNotification();
         model.addAttribute("em", result);
         return "em/index";
+    }
+
+    @GetMapping("/addEm")
+    public String createNote() {
+        return "em/addEm";
+    }
+
+    @PostMapping("/addEm")
+    public String createNote(@ModelAttribute("emForm") EmergencyNotificationDTO emergencyNotificationDTO) {
+        emergencyNotificationService.createEmergencyNotification(emergencyNotificationDTO);
+        return "redirect:/em";
+    }
+
+    @GetMapping("/patient/list/{id}")
+    public String getEmPatientList (@PathVariable Long id,
+                                    Model model) {
+
+        model.addAttribute("em", emergencyNotificationService.getOneById(id));
+
+        return "em/patient/index";
     }
 
 }
