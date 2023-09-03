@@ -1,5 +1,6 @@
 package com.levdoc.medhapp.model.simplenote;
 
+import com.levdoc.medhapp.model.GenericModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,11 +15,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SimpleNoteModel {
-    @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class SimpleNoteModel extends GenericModel {
 
     @Column(name = "main_text", nullable = false, length = 3000)
     private String mainText;

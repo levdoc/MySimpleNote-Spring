@@ -1,5 +1,6 @@
 package com.levdoc.medhapp.model.mkb;
 
+import com.levdoc.medhapp.model.GenericModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,11 +13,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Mkb10Model {
-    @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Mkb10Model extends GenericModel {
 
     @Column(name = "kod_mkb", nullable = true)
     private String kodMkb;
