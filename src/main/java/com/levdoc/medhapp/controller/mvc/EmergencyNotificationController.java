@@ -39,10 +39,14 @@ public class EmergencyNotificationController {
     @GetMapping("/patient/list/{id}")
     public String getEmPatientList (@PathVariable Long id,
                                     Model model) {
-
         model.addAttribute("em", emergencyNotificationService.getOneById(id));
-
         return "em/patient/index";
     }
+
+    /*
+    Реализовать контролер добавления пациента
+    Реализовать сервис работы с пациентами (добавить, удалить, редактировать)
+    Реализовать страницы добавления пациента, редактирования пациента
+     */
 
 }
