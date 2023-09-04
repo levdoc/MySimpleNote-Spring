@@ -56,10 +56,10 @@ public class PatientDTO extends GenericModelDTO {
     private TypeOfDiagnosisEnum typeOfDiagnosis;
 
     //  Код МКБ-10 диагноза
-    private TypeOfDiagnosisEnum mkb10CodeOfDisease;
+    private String mkb10CodeOfDisease;
 
     //  Код МКБ-10 диагноза УТОЧНЕННЫЙ
-    private TypeOfDiagnosisEnum mkb10CodeOfDiseaseRefined;
+    private String mkb10CodeOfDiseaseRefined;
 
     // Дата установления диагноза
     private LocalDate dateOfDiagnosis;
@@ -82,5 +82,6 @@ public class PatientDTO extends GenericModelDTO {
     // Дата обращения (в формате ДД-ММ-ГГГГ)
     private LocalDate dateOfTheApplication;
 
+    private Long idOfEmergencyNotification;
 
 }

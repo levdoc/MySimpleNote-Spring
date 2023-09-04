@@ -2,6 +2,7 @@ package com.levdoc.medhapp.model.notification;
 
 public enum LaboratoryConfirmationEnum {
 
+    DEFAULT (""),
     YES ("Да"),
     NO ("Нет");
 

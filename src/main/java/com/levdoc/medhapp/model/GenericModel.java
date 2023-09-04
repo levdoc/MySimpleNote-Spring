@@ -25,6 +25,7 @@ public abstract class GenericModel {
     @Column(name = "send_when")
     private LocalDateTime sendWhen;
 
-
+    @Column(name = "is_deleted", columnDefinition = "boolean default false")
+    private boolean isDeleted;
 
 }

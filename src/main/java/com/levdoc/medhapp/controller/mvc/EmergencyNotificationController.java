@@ -1,6 +1,7 @@
 package com.levdoc.medhapp.controller.mvc;
 
 import com.levdoc.medhapp.dto.EmergencyNotificationDTO;
+import com.levdoc.medhapp.dto.PatientDTO;
 import com.levdoc.medhapp.service.EmergencyNotificationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,16 +38,29 @@ public class EmergencyNotificationController {
     }
 
     @GetMapping("/patient/list/{id}")
-    public String getEmPatientList (@PathVariable Long id,
-                                    Model model) {
+    public String getEmPatientList(@PathVariable Long id,
+                                   Model model) {
         model.addAttribute("em", emergencyNotificationService.getOneById(id));
         return "em/patient/index";
     }
 
-    /*
-    Реализовать контролер добавления пациента
-    Реализовать сервис работы с пациентами (добавить, удалить, редактировать)
-    Реализовать страницы добавления пациента, редактирования пациента
-     */
+    @GetMapping("/patient/add/{idEm}")
+    public String addPatientToEm(@PathVariable Long idEm,
+                                 Model model) {
+        model.addAttribute("em", emergencyNotificationService.getOneById(idEm).getId());
+        return "em/patient/addPatient";
+    }
+
+    @PostMapping("/patient/add")
+    public String addPatientToEm(@ModelAttribute PatientDTO patientDTO) {
+        emergencyNotificationService.addPatientToEmergencyNotification(patientDTO);
+        return "redirect:/em";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteNote(@PathVariable Long id) {
+        emergencyNotificationService.softDeleteEm(id);
+        return "redirect:/em";
+    }
 
 }

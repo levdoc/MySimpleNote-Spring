@@ -3,6 +3,7 @@ package com.levdoc.medhapp.model.notification;
 public enum SocialGroupEnum {
 
 
+    A0(""),
     A1("Работники детских молочных кухонь"),
     A2("Работники пищевой промышленности"),
     A3("Реанимация, анестезия врачи"),

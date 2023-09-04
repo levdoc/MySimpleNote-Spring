@@ -11,4 +11,5 @@ public abstract class GenericModelDTO {
     private Long id;
     private LocalDateTime createdWhen;
     private LocalDateTime sendWhen;
+    private boolean isDeleted;
 }

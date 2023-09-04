@@ -64,10 +64,10 @@ public class Patient extends GenericModel {
     private TypeOfDiagnosisEnum typeOfDiagnosis;
 
     @Column(name = "mkb10_code_disease") //  Код МКБ-10 диагноза
-    private TypeOfDiagnosisEnum mkb10CodeOfDisease;
+    private String mkb10CodeOfDisease;
 
     @Column(name = "mkb10_code_disease_refined") //  Код МКБ-10 диагноза УТОЧНЕННЫЙ
-    private TypeOfDiagnosisEnum mkb10CodeOfDiseaseRefined;
+    private String mkb10CodeOfDiseaseRefined;
 
     @Column(name = "date_of_diagnosis") // Дата установления диагноза
     private LocalDate dateOfDiagnosis;

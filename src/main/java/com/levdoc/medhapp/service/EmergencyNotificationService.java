@@ -1,9 +1,12 @@
 package com.levdoc.medhapp.service;
 
 import com.levdoc.medhapp.dto.EmergencyNotificationDTO;
+import com.levdoc.medhapp.dto.PatientDTO;
 import com.levdoc.medhapp.mapper.EmergencyNotificationMapper;
+import com.levdoc.medhapp.mapper.PatientMapper;
 import com.levdoc.medhapp.model.notification.EmergencyNotification;
 import com.levdoc.medhapp.repository.EmergencyNotificationRepository;
+import com.levdoc.medhapp.repository.PatientRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -14,11 +17,17 @@ import java.util.List;
 public class EmergencyNotificationService {
     private final EmergencyNotificationRepository emergencyNotificationRepository;
     private final EmergencyNotificationMapper emergencyNotificationMapper;
+    private final PatientMapper patientMapper;
+    private final PatientRepository patientRepository;
 
     public EmergencyNotificationService(EmergencyNotificationRepository emergencyNotificationRepository,
-                                        EmergencyNotificationMapper emergencyNotificationMapper) {
+                                        EmergencyNotificationMapper emergencyNotificationMapper,
+                                        PatientMapper patientMapper,
+                                        PatientRepository patientRepository) {
         this.emergencyNotificationRepository = emergencyNotificationRepository;
         this.emergencyNotificationMapper = emergencyNotificationMapper;
+        this.patientMapper = patientMapper;
+        this.patientRepository = patientRepository;
     }
 
     public List<EmergencyNotificationDTO> getAllEmergencyNotification() {
@@ -32,6 +41,7 @@ public class EmergencyNotificationService {
         em.setCreatedWhen(LocalDateTime.now());
         em.setInnMo(9102065701L);
         em.setMoName("ГБУЗРК \"РДИКБ\"");
+        em.setDeleted(false);
         em.setIsSend(false);
         em.setIsDownload(false);
         emergencyNotificationRepository.save(em);
@@ -42,4 +52,21 @@ public class EmergencyNotificationService {
                 emergencyNotificationRepository.getEmergencyNotificationById(id));
     }
 
+    public void addPatientToEmergencyNotification(PatientDTO patientDTO) {
+        EmergencyNotification em = emergencyNotificationRepository
+                .getEmergencyNotificationById(patientDTO.getIdOfEmergencyNotification());
+
+        em.getPatientList().add(patientRepository.save(patientMapper.dtoToModel(patientDTO)));
+        emergencyNotificationRepository.save(em);
+    }
+
+    public void hardDeleteEm(Long id) {
+        emergencyNotificationRepository.deleteById(id);
+    }
+
+    public void softDeleteEm(Long id) {
+        EmergencyNotification em = emergencyNotificationRepository.getEmergencyNotificationById(id);
+        em.setDeleted(true);
+        emergencyNotificationRepository.save(em);
+    }
 }

@@ -76,7 +76,7 @@
                 <th class="">Лаб. подтвержден</th>
                 <th class="">Дата отмены</th>
                 <th class="">Дата и время госпитализации</th>
-                <th class="">Дата заболевани</th>
+                <th class="">Дата заболевания</th>
                 <th class="">Дата обращения</th>
                 <th></th>
             </tr>
@@ -86,7 +86,7 @@
                 <td th:text="${patient.getSurname()}"></td>
                 <td th:text="${patient.getName()}"></td>
                 <td th:text="${patient.getPatronymic()}"></td>
-                <td th:text="${patient.getDateOfBirth()}"></td>
+                <td th:text="${#temporals.format(patient.getDateOfBirth(), 'dd-MM-yyyy')}"></td>
                 <td th:text="${patient.getSex().getSex()}"></td>
                 <td th:text="${patient.getMunicipality()}"></td>
                 <td th:text="${patient.getCommunity()}"></td>
@@ -94,18 +94,18 @@
                 <td th:text="${patient.getHouseNumber()}"></td>
                 <td th:text="${patient.getApartmentNumber()}"></td>
                 <td th:text="${patient.getPlaceOfStudy()}"></td>
-                <td th:text="${patient.getDateOfSchoolVisit()}"></td>
+                <td th:text="${#temporals.format(patient.getDateOfSchoolVisit(), 'dd-MM-yyyy')}"></td>
                 <td th:text="${patient.getSocialGroup().getTypeOfSocialGroup()}"></td>
                 <td th:text="${patient.getTypeOfDiagnosis().getTypeOfDiagnosis()}"></td>
                 <td th:text="${patient.getMkb10CodeOfDisease()}"></td>
-                <td th:text="${patient.getDateOfDiagnosis()}"></td>
+                <td th:text="${#temporals.format(patient.getDateOfDiagnosis(), 'dd-MM-yyyy')}"></td>
                 <td th:text="${patient.getMkb10CodeOfDiseaseRefined()}"></td>
-                <td th:text="${patient.getDateOfConfirmationOfDiagnosis()}"></td>
+                <td th:text="${#temporals.format(patient.getDateOfConfirmationOfDiagnosis(), 'dd-MM-yyyy')}"></td>
                 <td th:text="${patient.getDiagnosisConfirmedByLaboratory().getLaboratoryConfirmation()}"></td>
-                <td th:text="${patient.getDateOfWithdrawalOfTheDiagnosis()}"></td>
-                <td th:text="${patient.getDateAndTimeOfHospitalization()}"></td>
-                <td th:text="${patient.getDateOfIllness()}"></td>
-                <td th:text="${patient.getDateOfTheApplication()}"></td>
+                <td th:text="${#temporals.format(patient.getDateOfWithdrawalOfTheDiagnosis(), 'dd-MM-yyyy')}"></td>
+                <td th:text="${#temporals.format(patient.getDateAndTimeOfHospitalization(), 'dd-MM-yyyy HH:mm')}"></td>
+                <td th:text="${#temporals.format(patient.getDateOfIllness(), 'dd-MM-yyyy')}"></td>
+                <td th:text="${#temporals.format(patient.getDateAndTimeOfHospitalization(), 'dd-MM-yyyy')}"></td>
                 <td> Добавить функции работы с пациентом</td>
                 <!--                <td>-->
 

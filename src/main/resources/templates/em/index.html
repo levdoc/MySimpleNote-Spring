@@ -8,9 +8,6 @@
     <meta charset="UTF-8">
     <title>Экстреные извещения</title>
 
-<!--    <script type="text/javascript" th:src="@{/js/ButtonCleanOnFindNotes.js}"></script>-->
-<!--    <script type="text/javascript" th:src="@{/js/CopyNoteTextToClipboard.js}"></script>-->
-
 </head>
 
 <body>
@@ -66,6 +63,7 @@
             </thead>
 
             <tr th:each="eme:${em}">
+                <a th:if="${!eme.isDeleted()}">
                 <td th:text="${eme.getId()}"></td>
                 <td th:text="${eme.getCreatedWhen()}"></td>
                 <td th:text="${eme.getDocFio()}"></td>
@@ -78,21 +76,17 @@
                        th:href="'/em/patient/list/' + ${eme.id}">Просмотреть</a>
 
                 </td>
-                <td> Добавить функции работы с ЭИ </td>
-<!--                <td>-->
+                <td>
 
-<!--                    <div class="text-md-end">-->
-<!--                        <button type="button" class="btn btn-primary btn-sm"-->
-<!--                                th:attr="onclick=|copyToClipboard(${note.getId})|">Копировать-->
-<!--                        </button><p></p>-->
-<!--                        <a class="btn btn-sm btn-warning"-->
-<!--                           th:href="'/notes/update/' + ${note.getId()}">Редактировать</a><p></p>-->
-<!--                        <a class="btn btn-sm btn-outline-danger"-->
-<!--                           th:href="'/notes/delete/' + ${note.getId()}"-->
-<!--                           onclick="return confirm('Вы действительно хотите удалить заметку?')">Удалить</a><p></p>-->
-<!--                    </div>-->
-<!--                </td>-->
+                    <a class="btn btn-sm btn-outline-danger"
+                       th:href="'/em/delete/' + ${eme.id}"
+                       onclick="return confirm('Вы действительно хотите удалить пакет?')">Удалить</a><p></p>
+
+                </td>
+                </a>
+
             </tr>
+
         </table>
     </div>
 
