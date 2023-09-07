@@ -3,6 +3,7 @@ package com.levdoc.medhapp.controller.mvc;
 import com.levdoc.medhapp.dto.EmergencyNotificationDTO;
 import com.levdoc.medhapp.dto.PatientDTO;
 import com.levdoc.medhapp.service.EmergencyNotificationService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -61,6 +62,11 @@ public class EmergencyNotificationController {
     public String deleteNote(@PathVariable Long id) {
         emergencyNotificationService.softDeleteEm(id);
         return "redirect:/em";
+    }
+
+    @GetMapping("/em/export/excel")
+    public void exportEmToExcel(HttpServletResponse response) {
+
     }
 
 }
