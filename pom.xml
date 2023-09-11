@@ -11,7 +11,7 @@
     <groupId>com.levdoc</groupId>
     <artifactId>MedHApp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>MedHApp</name>
     <description>MedHApp</description>
     <properties>
