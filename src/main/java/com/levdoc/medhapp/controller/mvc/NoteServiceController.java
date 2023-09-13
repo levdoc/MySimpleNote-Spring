@@ -57,7 +57,7 @@ public class NoteServiceController {
             model.addAttribute("message", e.getMessage());
         }
 
-        excelExporter.testMethod(); // Удалить, исп. для проверки
+        excelExporter.createXlsxEmFile(); // Удалить, исп. для проверки
 
         return "note/index";
     }
