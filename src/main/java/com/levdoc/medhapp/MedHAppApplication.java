@@ -27,16 +27,16 @@ public class MedHAppApplication implements CommandLineRunner {
         System.out.println("Application path: http://localhost:" + serverPort);
 
 
-        File from = new File("src.txt");
-        File to = new File("dest.txt");
-
-        try {
-            copyFile(from, to);
-            System.out.println("File copied successfully.");
-        }
-        catch (IOException ex) {
-            ex.printStackTrace();
-        }
+//        File from = new File("src.txt");
+//        File to = new File("dest.txt");
+//
+//        try {
+//            copyFile(from, to);
+//            System.out.println("File copied successfully.");
+//        }
+//        catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
 
     }
 }

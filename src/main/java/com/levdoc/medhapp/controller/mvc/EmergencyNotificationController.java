@@ -2,6 +2,7 @@ package com.levdoc.medhapp.controller.mvc;
 
 import com.levdoc.medhapp.dto.EmergencyNotificationDTO;
 import com.levdoc.medhapp.dto.PatientDTO;
+import com.levdoc.medhapp.model.notification.EmergencyNotification;
 import com.levdoc.medhapp.service.EmExcelExporter;
 import com.levdoc.medhapp.service.EmergencyNotificationService;
 import org.springframework.stereotype.Controller;
@@ -74,6 +75,7 @@ public class EmergencyNotificationController {
         excelExporter.createXlsxFromEmDto(em);
 
         System.out.println("Создание файла Excel!!! " + id);
+
         return "redirect:/em";
     }
 

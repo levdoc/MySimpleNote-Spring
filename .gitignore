@@ -36,3 +36,4 @@ dataSources/h2db.trace.db
 
 h2db.mv.db
 h2db.trace.db
+/src/main/resources/file/tmp/
