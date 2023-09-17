@@ -1,8 +1,12 @@
 package com.levdoc.medhapp.service;
 
 import com.levdoc.medhapp.dto.EmergencyNotificationDTO;
+import com.levdoc.medhapp.dto.PatientDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +33,18 @@ public class EmExcelExporter {
         openTemplateFileEM(emergencyNotification);
         openSheetTemplate();
 
+        int rowIndex = 4; // Начальная строка заполнения таблицы
+        Row row = sheet.getRow(rowIndex);
+        Cell cell = row.createCell(3);
+        System.out.println(emergencyNotification.getInnMo());
+        cell.setCellValue(emergencyNotification.getInnMo().toString());
+
+        try {
+            workbook.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         System.out.println(workbook.getNumberOfSheets());
         System.out.println(sheet.isSelected());
 
@@ -41,6 +57,7 @@ public class EmExcelExporter {
                     "_" + UUID.randomUUID() + ".xlsx");
             copyFile(original, tmp);
             log.info("Create tmp file xlsx!");
+            log.info(tmp.getCanonicalPath());
             workbook = new XSSFWorkbook(tmp);
         } catch (IOException | InvalidFormatException e) {
             log.warn(e.getLocalizedMessage());
