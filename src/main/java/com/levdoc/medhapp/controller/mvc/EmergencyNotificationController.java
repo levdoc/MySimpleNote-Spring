@@ -2,8 +2,8 @@ package com.levdoc.medhapp.controller.mvc;
 
 import com.levdoc.medhapp.dto.EmergencyNotificationDTO;
 import com.levdoc.medhapp.dto.PatientDTO;
+import com.levdoc.medhapp.service.EmExcelExporter;
 import com.levdoc.medhapp.service.EmergencyNotificationService;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +15,12 @@ import java.util.List;
 public class EmergencyNotificationController {
 
     private final EmergencyNotificationService emergencyNotificationService;
+    private final EmExcelExporter excelExporter;
 
-    public EmergencyNotificationController(EmergencyNotificationService emergencyNotificationService) {
+    public EmergencyNotificationController(EmergencyNotificationService emergencyNotificationService,
+                                           EmExcelExporter excelExporter) {
         this.emergencyNotificationService = emergencyNotificationService;
+        this.excelExporter = excelExporter;
     }
 
     @GetMapping
@@ -64,9 +67,14 @@ public class EmergencyNotificationController {
         return "redirect:/em";
     }
 
-    @GetMapping("/em/export/excel")
-    public void exportEmToExcel(HttpServletResponse response) {
+    @GetMapping("/export/excel/{id}")
+    public String exportEmToExcel(@PathVariable Long id) {
+        EmergencyNotificationDTO em = emergencyNotificationService.getOneById(id);
 
+        excelExporter.createXlsxFromEmDto(em);
+
+        System.out.println("Создание файла Excel!!! " + id);
+        return "redirect:/em";
     }
 
 }

@@ -1,7 +1,6 @@
 package com.levdoc.medhapp.controller.mvc;
 
 import com.levdoc.medhapp.dto.SimpleNoteDTO;
-import com.levdoc.medhapp.service.EmExcelExporter;
 import com.levdoc.medhapp.service.SimpleNoteService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,12 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/notes")
 public class NoteServiceController {
     private final SimpleNoteService simpleNoteService;
-    private final EmExcelExporter excelExporter;
 
-    public NoteServiceController(SimpleNoteService simpleNoteService,
-                                 EmExcelExporter excelExporter) {
+    public NoteServiceController(SimpleNoteService simpleNoteService) {
         this.simpleNoteService = simpleNoteService;
-        this.excelExporter = excelExporter;
     }
 
     @GetMapping("/add")
@@ -56,9 +52,6 @@ public class NoteServiceController {
         } catch (Exception e) {
             model.addAttribute("message", e.getMessage());
         }
-
-        excelExporter.createXlsxEmFile(); // Удалить, исп. для проверки
-
         return "note/index";
     }
 
