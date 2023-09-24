@@ -1,6 +1,8 @@
 package com.levdoc.medhapp.service;
 
+import com.levdoc.medhapp.constants.FileConstants;
 import com.levdoc.medhapp.dto.EmergencyNotificationDTO;
+import com.levdoc.medhapp.dto.PatientDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
@@ -28,29 +30,33 @@ public class EmExcelExporter {
     private Sheet sheet;
 
     public void createXlsxFromEmDto(EmergencyNotificationDTO emergencyNotification) {
-        openTemplateFileEM(emergencyNotification);
+        int rowIndex = FileConstants.START_ROW_INDEX;
+
+        openTemplateFileEM(emergencyNotification.getDocFio());
         openSheetTemplate();
 
-        int rowIndex = 4; // Начальная строка заполнения таблицы
-        Row row = sheet.getRow(rowIndex);
-        Cell cell = row.createCell(3);
-        cell.setCellValue(emergencyNotification.getInnMo());
+        for (PatientDTO patient :
+                emergencyNotification.getPatientList()) {
 
-        try (OutputStream stream = OutputStream.nullOutputStream()) {
-            workbook.write(stream);
-            workbook.close();
-            log.info("Документ успешно создан!");
-        } catch (IOException e) {
-            log.error(e.getLocalizedMessage());
-            throw new RuntimeException(e);
+            Row row = sheet.getRow(rowIndex);
+            Cell cell = row.createCell(3);
+            cell.setCellValue(emergencyNotification.getInnMo());
+
+            rowIndex++;
         }
 
+        closeTemplateFileEM();
     }
 
-    private void openTemplateFileEM(EmergencyNotificationDTO emergencyNotification) {
+    /**
+     * Метод создает копию (ФИОВрача+UUID) шаблона и открывает его для внесения данных
+     *
+     * @param emDocFio метод принимает ФИО врача
+     */
+    private void openTemplateFileEM(String emDocFio) {
         try {
             File original = xlsxTemplateEm.getFile();
-            File tmp = new File(XLSX_TEMP_DIRECTORY + emergencyNotification.getDocFio() +
+            File tmp = new File(XLSX_TEMP_DIRECTORY + emDocFio +
                     "_" + UUID.randomUUID() + ".xlsx");
             copyFile(original, tmp);
             log.info("Create tmp file xlsx!");
@@ -62,8 +68,26 @@ public class EmExcelExporter {
         }
     }
 
+    /**
+     * Метод открывает лист документа для внесения изменений.
+     * Активный лист указан в FileConstants.ACTIVE_SHEET
+     */
     private void openSheetTemplate() {
-        sheet = workbook.getSheetAt(0);
+        sheet = workbook.getSheetAt(FileConstants.ACTIVE_SHEET);
     }
 
+    /**
+     * Метод закрывает ранее открытую копию книги Excel (шаблон экстренного извещения),
+     * и сохраняет внесенные изменения.
+     */
+    private void closeTemplateFileEM() {
+        try (OutputStream stream = OutputStream.nullOutputStream()) {
+            workbook.write(stream);
+            workbook.close();
+            log.info("Документ успешно создан!");
+        } catch (IOException e) {
+            log.error(e.getLocalizedMessage());
+            throw new RuntimeException(e);
+        }
+    }
 }
