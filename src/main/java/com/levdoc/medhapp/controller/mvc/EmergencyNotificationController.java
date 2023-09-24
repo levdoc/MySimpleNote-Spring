@@ -2,9 +2,12 @@ package com.levdoc.medhapp.controller.mvc;
 
 import com.levdoc.medhapp.dto.EmergencyNotificationDTO;
 import com.levdoc.medhapp.dto.PatientDTO;
-import com.levdoc.medhapp.model.notification.EmergencyNotification;
 import com.levdoc.medhapp.service.EmExcelExporter;
 import com.levdoc.medhapp.service.EmergencyNotificationService;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -77,6 +80,37 @@ public class EmergencyNotificationController {
         System.out.println("Создание файла Excel!!! " + id);
 
         return "redirect:/em";
+    }
+
+    @GetMapping(value = "/export/excel/{id}/download", produces = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @ResponseBody
+    public ResponseEntity<Resource> downloadEMFile(@PathVariable Long id) {
+
+        return ResponseEntity.ok()
+                .body(null);
+    }
+
+
+//    @GetMapping(value = "/download", produces = MediaType.MULTIPART_FORM_DATA_VALUE)
+//    @ResponseBody
+//    public ResponseEntity<Resource> downloadBook(@Param(value = "bookId") Long bookId) throws IOException {
+//        BookDTO bookDTO = bookService.getOne(bookId);
+//        Path path = Paths.get(bookDTO.getOnlineCopyPath());
+//        ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
+//
+//        return ResponseEntity.ok()
+//                .headers(createHeaders(path.getFileName().toString()))
+//                .contentLength(path.toFile().length())
+//                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+//                .body(resource);
+//    }
+
+    private HttpHeaders createHeaders(final String name) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + name);
+        headers.add("Cache-Control", "no-cache, no-store");
+        headers.add("Expires", "0");
+        return headers;
     }
 
 }

@@ -1,11 +1,9 @@
 package com.levdoc.medhapp.service;
 
 import com.levdoc.medhapp.dto.EmergencyNotificationDTO;
-import com.levdoc.medhapp.dto.PatientDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -15,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
+import java.io.OutputStream;
 import java.util.UUID;
 
 import static com.levdoc.medhapp.constants.FileConstants.XLSX_TEMP_DIRECTORY;
@@ -36,17 +34,16 @@ public class EmExcelExporter {
         int rowIndex = 4; // Начальная строка заполнения таблицы
         Row row = sheet.getRow(rowIndex);
         Cell cell = row.createCell(3);
-        System.out.println(emergencyNotification.getInnMo());
-        cell.setCellValue(emergencyNotification.getInnMo().toString());
+        cell.setCellValue(emergencyNotification.getInnMo());
 
-        try {
+        try (OutputStream stream = OutputStream.nullOutputStream()) {
+            workbook.write(stream);
             workbook.close();
+            log.info("Документ успешно создан!");
         } catch (IOException e) {
+            log.error(e.getLocalizedMessage());
             throw new RuntimeException(e);
         }
-
-        System.out.println(workbook.getNumberOfSheets());
-        System.out.println(sheet.isSelected());
 
     }
 
