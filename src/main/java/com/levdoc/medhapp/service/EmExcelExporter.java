@@ -15,14 +15,17 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 import static com.levdoc.medhapp.constants.FileConstants.XLSX_TEMP_DIRECTORY;
@@ -40,14 +43,13 @@ public class EmExcelExporter {
     private void writeXlsxFromEmDto(@NotNull EmergencyNotificationDTO emergencyNotification) {
         int rowIndex = FileConstants.START_ROW_INDEX;
 
-        openTemplateFileEM();
+//        openTemplateFileEM();
+        openTemplateFileEmInputStream();
         openSheetTemplate();
 
         for (PatientDTO patient :
                 emergencyNotification.getPatientList()) {
-
             Row row = sheet.getRow(rowIndex);
-
             createCell(row, 3, emergencyNotification.getInnMo());
             createCell(row, 4, emergencyNotification.getMoName());
             createCell(row, 5, emergencyNotification.getDocFio());
@@ -55,7 +57,7 @@ public class EmExcelExporter {
             createCell(row, 8, patient.getSurname());
             createCell(row, 9, patient.getName());
             createCell(row, 10, patient.getPatronymic());
-            createCell(row, 11, patient.getDateOfBirth()); //TODO Исправить формат даты!!!
+            createCell(row, 11, patient.getDateOfBirth());
             createCell(row, 12, patient.getSex());
             createCell(row, 13, patient.getPatientPhoneNumber());
             createCell(row, 15, patient.getMunicipality());
@@ -65,23 +67,21 @@ public class EmExcelExporter {
             createCell(row, 19, patient.getApartmentNumber());
             createCell(row, 20, patient.getPlaceOfStudy());
             createCell(row, 27, patient.getSocialGroup());
-            createCell(row, 28, patient.getDateOfSchoolVisit()); //TODO Исправить формат даты!!!
+            createCell(row, 28, patient.getDateOfSchoolVisit());
             createCell(row, 29, patient.getTypeOfDiagnosis());
             createCell(row, 30, patient.getMkb10CodeOfDisease());
             createCell(row, 31, patient.getMkb10CodeOfDiseaseRefined());
-            createCell(row, 32, patient.getDateOfDiagnosis()); //TODO Исправить формат даты!!!
-            createCell(row, 33, patient.getDateOfConfirmationOfDiagnosis()); //TODO Исправить формат даты!!!
+            createCell(row, 32, patient.getDateOfDiagnosis());
+            createCell(row, 33, patient.getDateOfConfirmationOfDiagnosis());
             createCell(row, 34, patient.getDiagnosisConfirmedByLaboratory());
-            createCell(row, 35, patient.getDateOfWithdrawalOfTheDiagnosis()); //TODO Исправить формат даты!!!
+            createCell(row, 35, patient.getDateOfWithdrawalOfTheDiagnosis());
             createCell(row, 36, patient.getDateAndTimeOfHospitalization()); //TODO Исправить формат даты!!!
             createCell(row, 37, emergencyNotification.getInnMo());
             createCell(row, 38, emergencyNotification.getMoName());
-            createCell(row, 39, patient.getDateOfIllness()); //TODO Исправить формат даты!!!
-            createCell(row, 40, patient.getDateOfTheApplication()); //TODO Исправить формат даты!!!
-
+            createCell(row, 39, patient.getDateOfIllness());
+            createCell(row, 40, patient.getDateOfTheApplication());
             rowIndex++;
         }
-
         closeTemplateFileEM();
     }
 
@@ -91,7 +91,7 @@ public class EmExcelExporter {
     }
 
     /**
-     * Метод создает копию (UUID) шаблона и открывает его для внесения данных
+     * Метод создает копию (UUID) шаблона и открывает его для внесения данных (java.io.File)
      */
     private void openTemplateFileEM() {
         try {
@@ -105,6 +105,25 @@ public class EmExcelExporter {
             log.warn(e.getLocalizedMessage());
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Метод создает копию (UUID) шаблона и открывает его для внесения данных (InputStream)
+     * TODO ДОПИСАТЬ!!!!
+     */
+    private InputStream openTemplateFileEmInputStream() {
+        Resource emResource = new ClassPathResource("file/xlsxTemplateEm.xlsx");
+        InputStream inputStream;
+        try {
+            inputStream = emResource.getInputStream();
+            // Сделать копию в /temp/file/em
+            workbook = new XSSFWorkbook(inputStream);
+            log.info("Шаблон экстренного извещения успешно открыт!");
+        } catch (IOException e) {
+            log.warn("Ошибка открытия шаблона экстренного извещения!");
+            throw new RuntimeException(e);
+        }
+        return inputStream;
     }
 
     /**
@@ -138,7 +157,8 @@ public class EmExcelExporter {
             } else if (value instanceof String) {
                 cell.setCellValue((String) value);
             } else if (value instanceof LocalDate) {
-                cell.setCellValue(String.valueOf(value));
+                DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+                cell.setCellValue(((LocalDate) value).format(dateTimeFormatter));
             } else if (value instanceof SexEnum) {
                 cell.setCellValue(((SexEnum) value).getSex());
             } else if (value instanceof SocialGroupEnum) {
@@ -148,10 +168,9 @@ public class EmExcelExporter {
             } else if (value instanceof LaboratoryConfirmationEnum) {
                 cell.setCellValue(((LaboratoryConfirmationEnum) value).getLaboratoryConfirmation());
             } else if (value instanceof LocalDateTime) {
-                cell.setCellValue(value.toString());
+                DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+                cell.setCellValue(((LocalDateTime) value).format(dateTimeFormatter));
             }
         }
-        // Обработка Null
-        // TODO УДАЛИТЬ
     }
 }
