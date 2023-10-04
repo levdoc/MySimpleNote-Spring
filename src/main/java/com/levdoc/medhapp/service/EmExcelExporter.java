@@ -13,38 +13,32 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
+import static com.levdoc.medhapp.constants.FileConstants.EM_OUTPUT_EXTENTION;
 import static com.levdoc.medhapp.constants.FileConstants.XLSX_TEMP_DIRECTORY;
 import static org.aspectj.util.FileUtil.copyFile;
 
 @Slf4j
 @Service
 public class EmExcelExporter {
-    @Value("classpath:file/xlsxTemplateEm.xlsx")
-    private Resource xlsxTemplateEm;
+
     private XSSFWorkbook workbook;
     private Sheet sheet;
     private File tmp;
 
-    private void writeXlsxFromEmDto(@NotNull EmergencyNotificationDTO emergencyNotification) {
+    private void writeXlsxFromEmDto(EmergencyNotificationDTO emergencyNotification) {
         int rowIndex = FileConstants.START_ROW_INDEX;
 
-//        openTemplateFileEM();
-        openTemplateFileEmInputStream();
+        openTemplateFileEM();
         openSheetTemplate();
 
         for (PatientDTO patient :
@@ -85,7 +79,7 @@ public class EmExcelExporter {
         closeTemplateFileEM();
     }
 
-    public File getEmExcleFile(@NotNull EmergencyNotificationDTO emergencyNotification) {
+    public File getEmExcleFile(EmergencyNotificationDTO emergencyNotification) {
         writeXlsxFromEmDto(emergencyNotification);
         return tmp;
     }
@@ -95,8 +89,8 @@ public class EmExcelExporter {
      */
     private void openTemplateFileEM() {
         try {
-            File original = xlsxTemplateEm.getFile();
-            tmp = new File(XLSX_TEMP_DIRECTORY + UUID.randomUUID() + ".xlsx");
+            File original = new File("tmp/file/xlsxTemplateEm.xlsx");
+            tmp = new File(XLSX_TEMP_DIRECTORY + UUID.randomUUID() + EM_OUTPUT_EXTENTION);
             copyFile(original, tmp);
             log.info("Create tmp file xlsx!");
             log.info(tmp.getCanonicalPath());
@@ -105,25 +99,6 @@ public class EmExcelExporter {
             log.warn(e.getLocalizedMessage());
             throw new RuntimeException(e);
         }
-    }
-
-    /**
-     * Метод создает копию (UUID) шаблона и открывает его для внесения данных (InputStream)
-     * TODO ДОПИСАТЬ!!!!
-     */
-    private InputStream openTemplateFileEmInputStream() {
-        Resource emResource = new ClassPathResource("file/xlsxTemplateEm.xlsx");
-        InputStream inputStream;
-        try {
-            inputStream = emResource.getInputStream();
-            // Сделать копию в /temp/file/em
-            workbook = new XSSFWorkbook(inputStream);
-            log.info("Шаблон экстренного извещения успешно открыт!");
-        } catch (IOException e) {
-            log.warn("Ошибка открытия шаблона экстренного извещения!");
-            throw new RuntimeException(e);
-        }
-        return inputStream;
     }
 
     /**
