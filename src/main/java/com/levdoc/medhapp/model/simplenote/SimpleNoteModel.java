@@ -2,7 +2,6 @@ package com.levdoc.medhapp.model.simplenote;
 
 import com.levdoc.medhapp.model.GenericModel;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
