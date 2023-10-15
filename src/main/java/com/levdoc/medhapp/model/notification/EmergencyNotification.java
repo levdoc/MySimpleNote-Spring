@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class EmergencyNotification extends GenericModel {
     @Column(name = "is_download")
     private Boolean isDownload;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     @Column(name = "patient_list")
     private List<Patient> patientList;
 

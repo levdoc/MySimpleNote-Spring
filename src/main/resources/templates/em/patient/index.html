@@ -20,35 +20,6 @@
            th:href="'/em/patient/add/' + ${em.id}">Добавить пациента</a>
     </div>
 
-    <!--    <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show text-center message"-->
-    <!--         role="alert">-->
-    <!--        [[${message}]]-->
-    <!--        <button type="button" class="close btn-sm" data-dismiss="alert" aria-label="Close">-->
-    <!--            <span aria-hidden="true">&times;</span>-->
-    <!--        </button>-->
-    <!--    </div>-->
-
-    <!--    <div>-->
-    <!--        <br>-->
-    <!--        <form th:action="@{/notes}" id="searchForm">-->
-    <!--            <div class="list-inline">-->
-    <!--                    <div class="search-tag-link">-->
-    <!--                        <input id="keyword" type="search" name="keyword" th:value="${keyword}" required class="form-control"-->
-    <!--                               placeholder="Поле для поиска">-->
-    <!--                        <br>-->
-    <!--                        <button type="submit" class="btn btn-info">Поиск</button>-->
-    <!--                        <button id="btnClear" class="btn btn-secondary">Сброс</button>-->
-    <!--                        <br>-->
-    <!--                        <br>-->
-    <!--                    </div>-->
-    <!--            </div>-->
-    <!--        </form>-->
-    <!--    </div>-->
-
-    <!--    <div>-->
-    <!--        <a class="btn btn-primary btn-sm" th:href="@{em/addEm}">Создать пакет</a>-->
-    <!--    </div>-->
-
     <br>
 
     <div class="table-responsive">
@@ -58,97 +29,40 @@
                 <th class="">Фамилия</th>
                 <th class="">Имя</th>
                 <th class="">Отчество</th>
-                <th class="">Дата рождения</th>
-                <th class="">Пол</th>
-                <th class="">Муниципальное образование</th>
-                <th class="">Населенный пункт</th>
-                <th class="">Улица</th>
-                <th class="">Номер дома</th>
-                <th class="">Номер квартиры</th>
-                <th class="">Место работы/учебы</th>
-                <th class="">Дата последнего посещения работы/учебы</th>
                 <th class="">Социальная группа</th>
                 <th class="">Тип диагноза</th>
                 <th class="">Код МКБ Диагоза</th>
-                <th class="">Дата установления</th>
                 <th class="">Код МКБ УТОЧНЕННЫЙ</th>
                 <th class="">Дата подтверждения</th>
                 <th class="">Лаб. подтвержден</th>
-                <th class="">Дата отмены</th>
-                <th class="">Дата и время госпитализации</th>
-                <th class="">Дата заболевания</th>
-                <th class="">Дата обращения</th>
-                <th></th>
+                <th class="">Функции</th>
             </tr>
             </thead>
 
             <tr th:each="patient:${em.getPatientList()}">
-                <td th:text="${patient.getSurname()}"></td>
-                <td th:text="${patient.getName()}"></td>
-                <td th:text="${patient.getPatronymic()}"></td>
-                <td th:text="${#temporals.format(patient.getDateOfBirth(), 'dd-MM-yyyy')}"></td>
-                <td th:text="${patient.getSex().getSex()}"></td>
-                <td th:text="${patient.getMunicipality()}"></td>
-                <td th:text="${patient.getCommunity()}"></td>
-                <td th:text="${patient.getStreet()}"></td>
-                <td th:text="${patient.getHouseNumber()}"></td>
-                <td th:text="${patient.getApartmentNumber()}"></td>
-                <td th:text="${patient.getPlaceOfStudy()}"></td>
-                <td th:text="${#temporals.format(patient.getDateOfSchoolVisit(), 'dd-MM-yyyy')}"></td>
-                <td th:text="${patient.getSocialGroup().getTypeOfSocialGroup()}"></td>
-                <td th:text="${patient.getTypeOfDiagnosis().getTypeOfDiagnosis()}"></td>
-                <td th:text="${patient.getMkb10CodeOfDisease()}"></td>
-                <td th:text="${#temporals.format(patient.getDateOfDiagnosis(), 'dd-MM-yyyy')}"></td>
-                <td th:text="${patient.getMkb10CodeOfDiseaseRefined()}"></td>
-                <td th:text="${#temporals.format(patient.getDateOfConfirmationOfDiagnosis(), 'dd-MM-yyyy')}"></td>
-                <td th:text="${patient.getDiagnosisConfirmedByLaboratory().getLaboratoryConfirmation()}"></td>
-                <td th:text="${#temporals.format(patient.getDateOfWithdrawalOfTheDiagnosis(), 'dd-MM-yyyy')}"></td>
-                <td th:text="${#temporals.format(patient.getDateAndTimeOfHospitalization(), 'dd-MM-yyyy HH:mm')}"></td>
-                <td th:text="${#temporals.format(patient.getDateOfIllness(), 'dd-MM-yyyy')}"></td>
-                <td th:text="${#temporals.format(patient.getDateAndTimeOfHospitalization(), 'dd-MM-yyyy')}"></td>
-                <td> Добавить функции работы с пациентом</td>
-                <!--                <td>-->
-
-                <!--                    <div class="text-md-end">-->
-                <!--                        <button type="button" class="btn btn-primary btn-sm"-->
-                <!--                                th:attr="onclick=|copyToClipboard(${note.getId})|">Копировать-->
-                <!--                        </button><p></p>-->
-                <!--                        <a class="btn btn-sm btn-warning"-->
-                <!--                           th:href="'/notes/update/' + ${note.getId()}">Редактировать</a><p></p>-->
-                <!--                        <a class="btn btn-sm btn-outline-danger"-->
-                <!--                           th:href="'/notes/delete/' + ${note.getId()}"-->
-                <!--                           onclick="return confirm('Вы действительно хотите удалить заметку?')">Удалить</a><p></p>-->
-                <!--                    </div>-->
-                <!--                </td>-->
+                <a th:if="!${patient.isDeleted()}">
+                    <td th:text="${patient.getSurname()}"></td>
+                    <td th:text="${patient.getName()}"></td>
+                    <td th:text="${patient.getPatronymic()}"></td>
+                    <td th:text="${patient.getSocialGroup().getTypeOfSocialGroup()}"></td>
+                    <td th:text="${patient.getTypeOfDiagnosis().getTypeOfDiagnosis()}"></td>
+                    <td th:text="${patient.getMkb10CodeOfDisease()}"></td>
+                    <td th:text="${patient.getMkb10CodeOfDiseaseRefined()}"></td>
+                    <td th:text="${#temporals.format(patient.getDateOfConfirmationOfDiagnosis(), 'dd-MM-yyyy')}"></td>
+                    <td th:text="${patient.getDiagnosisConfirmedByLaboratory().getLaboratoryConfirmation()}"></td>
+                    <td>
+                        <a class="btn btn-sm btn-warning"
+                           th:href="'/notes/update/' + ${patient.id}">Редактировать</a>
+                        <p></p>
+                        <a class="btn btn-sm btn-outline-danger"
+                           th:href="'/em/'+${em.id}+'/patient/delete/' + ${patient.id}"
+                           onclick="return confirm('Вы действительно хотите удалить пациента?')">Удалить</a>
+                        <p></p>
+                    </td>
+                </a>
             </tr>
         </table>
     </div>
-
-    <!--    <div>-->
-    <!--        <nav aria-label="Pagination" th:if="${notes.totalPages gt 0}">-->
-    <!--            <ul class="pagination justify-content-center font-weight-bold">-->
-    <!--                <li class="page-item" th:classappend="${notes.number eq 0} ? 'disabled'">-->
-    <!--                    <a class="page-link"-->
-    <!--                       th:href="@{/notes?page={id}(id=${notes.number lt 2 ? 1 : notes.number})}"-->
-    <!--                       aria-label="Previous" title="Предыдущая страница" data-toggle="tooltip">-->
-    <!--                        <span aria-hidden="true">&laquo;</span>-->
-    <!--                    </a>-->
-    <!--                </li>-->
-    <!--                <li class="page-item" th:classappend="${i eq notes.number + 1} ? 'active'"-->
-    <!--                    th:each="i : ${#numbers.sequence( 1, notes.totalPages, 1)}">-->
-    <!--                    <a class="page-link" th:href="@{/notes?page={id}(id=${i})}" th:text="${i}"-->
-    <!--                       th:title="${'Страница '+ i}" data-toggle="tooltip"></a>-->
-    <!--                </li>-->
-    <!--                <li class="page-item" th:classappend="${notes.number eq notes.totalPages - 1} ? 'disabled'">-->
-    <!--                    <a class="page-link"-->
-    <!--                       th:href="@{/notes?page={id}(id=${notes.number + 2})}"-->
-    <!--                       aria-label="Next" title="Следующая страница" data-toggle="tooltip">-->
-    <!--                        <span aria-hidden="true">&raquo;</span>-->
-    <!--                    </a>-->
-    <!--                </li>-->
-    <!--            </ul>-->
-    <!--        </nav>-->
-    <!--    </div>-->
 </div>
 
 </body>

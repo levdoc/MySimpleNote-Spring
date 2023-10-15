@@ -67,7 +67,14 @@ public class EmergencyNotificationController {
     @PostMapping("/patient/add")
     public String addPatientToEm(@ModelAttribute PatientDTO patientDTO) {
         emergencyNotificationService.addPatientToEmergencyNotification(patientDTO);
-        return "redirect:/em";
+        return "redirect:/em/patient/list/" + patientDTO.getIdOfEmergencyNotification();
+    }
+
+    @GetMapping("{emId}/patient/delete/{id}")
+    public String deletePatientOfEm(@PathVariable Long emId,
+                                    @PathVariable Long id) {
+        emergencyNotificationService.softDeletePatient(id);
+        return "redirect:/em/patient/list/" + emId;
     }
 
     @GetMapping("/delete/{id}")
