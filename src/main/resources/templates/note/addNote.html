@@ -21,7 +21,7 @@
 
     <h5><p class="text-center">Добавить заметку</p></h5>
 
-    <form method="post" th:action="@{/notes/add}" th:object="${noteForm}">
+    <form action="#" method="post" th:action="@{/notes/add}" th:object="${noteForm}">
 
         <div class="form-group">
 
@@ -33,7 +33,7 @@
                                 th:value="${typeOfNote}" th:text="${typeOfNote.getTypeOfNoteTextDisplay()}"></option>
                     </select>
                     <label for="typeOfNote">Тип заметки</label>
-                    <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    <p th:if="${#fields.hasErrors('typeOfNote')}" th:errorclass="alert-warning">Укажите ти заметки!</p>
                 </div>
             </div>
 

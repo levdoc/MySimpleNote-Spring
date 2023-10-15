@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -22,8 +23,19 @@ public class NoteServiceController {
         return "note/addNote";
     }
 
+//    @PostMapping("/add")
+//    public String createNote(@ModelAttribute("noteForm") SimpleNoteDTO simpleNoteDTO) {
+//        simpleNoteService.createNote(simpleNoteDTO);
+//        return "redirect:/notes";
+//    }
+
     @PostMapping("/add")
-    public String createNote(@ModelAttribute("noteForm") SimpleNoteDTO simpleNoteDTO) {
+    public String createNote(@ModelAttribute("noteForm") SimpleNoteDTO simpleNoteDTO,
+                             BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            System.out.println("ОШИБКА!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            return "note/addNote";
+        }
         simpleNoteService.createNote(simpleNoteDTO);
         return "redirect:/notes";
     }

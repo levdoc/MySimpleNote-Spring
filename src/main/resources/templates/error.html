@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+
+<head>
+    <style>
+        table td {
+            vertical-align: top;
+            border: solid 1px #888;
+            padding: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <h1>Ошибочка вышла ...</h1>
+    <table>
+        <tr>
+            <td>Date</td>
+            <td th:text="${timestamp}"/>
+        </tr>
+        <tr>
+            <td>Path</td>
+            <td th:text="${path}"/>
+        </tr>
+        <tr>
+            <td>Error</td>
+            <td th:text="${error}"/>
+        </tr>
+        <tr>
+            <td>Status</td>
+            <td th:text="${status}"/>
+        </tr>
+        <tr>
+            <td>Message</td>
+            <td th:text="${message}"/>
+        </tr>
+        <tr>
+            <td>Exception</td>
+            <td th:text="${exception}"/>
+        </tr>
+        <tr>
+            <td>Trace</td>
+            <td>
+                <a data-bs-toggle="collapse" href="#collapseExample"
+                   aria-expanded="false" aria-controls="collapseExample">
+                    Trace
+                </a>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        <pre th:text="${trace}"/>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+
+</html>
