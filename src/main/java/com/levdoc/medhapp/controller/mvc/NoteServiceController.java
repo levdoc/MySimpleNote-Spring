@@ -72,11 +72,7 @@ public class NoteServiceController {
     @GetMapping("/update/{id}")
     public String updateNote(@PathVariable Long id,
                              Model model) {
-        try {
-            model.addAttribute("note", simpleNoteService.getOneById(id));
-        } catch (Exception e) {
-            model.addAttribute("message", e.getMessage());
-        }
+        model.addAttribute("note", simpleNoteService.getOneById(id));
         return "note/updateNote";
     }
 
