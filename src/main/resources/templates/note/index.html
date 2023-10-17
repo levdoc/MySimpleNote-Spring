@@ -45,8 +45,8 @@
         <table class="table table-striped table-bordered">
             <thead class="table-primary">
             <tr>
-                <th class="col text-md-center">Текст заметки</th>
-                <th class="col-md-auto text-md-end">Функции</th>
+                <th class="col text-md-center col-md-8">Текст заметки</th>
+                <th class="col-md-4 text-md-end">Функции</th>
             </tr>
             </thead>
 
@@ -54,7 +54,7 @@
                 <td th:utext="${note.getMainText()}"
                     class="text-wrap" th:id="${note.getId()}"></td>
                 <td>
-                    <div class="text-md-end col-md-auto">
+                    <div class="text-md-end">
                         <button type="button" class="btn btn-primary btn-sm"
                                 th:attr="onclick=|copyToClipboard(${note.getId})|">Копировать
                         </button><p></p>
