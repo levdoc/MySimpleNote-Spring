@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <title>Добавить заметку</title>
 
-    <script type="text/javascript" th:src="@{/js/ValidateCharacterLength.js}"></script>
+    <script type="text/javascript" th:src="@{/js/ValidateAddFormNote.js}"></script>
     <script type="text/javascript" th:src="@{/js/CountCharacters.js}"></script>
     <script src="/webjars/tinymce/5.0.9/tinymce.min.js"></script>
 
@@ -21,14 +21,14 @@
 
     <h5><p class="text-center">Добавить заметку</p></h5>
 
-    <form action="#" method="post" th:action="@{/notes/add}" th:object="${noteForm}">
+    <form name="addNoteForm" action="#" method="post" th:action="@{/notes/add}" th:object="${noteForm}">
 
         <div class="form-group">
 
             <div class="col-md">
                 <div class="form-floating">
                     <select class="form-select" name="typeOfNote" id="typeOfNote" required>
-                        <option selected value="default">Выберете тип заметки из списка</option>
+                        <option value="default">Выберете тип заметки из списка</option>
                         <option th:each="typeOfNote : ${T(com.levdoc.medhapp.model.simplenote.TypeOfNote).values()}"
                                 th:value="${typeOfNote}" th:text="${typeOfNote.getTypeOfNoteTextDisplay()}"></option>
                     </select>
@@ -65,7 +65,7 @@
         <br>
         <br>
 
-        <button type="submit" class="btn btn-primary btn-sm" onclick="return ValidateCharacterLength()">Добавить
+        <button type="submit" class="btn btn-primary btn-sm" onclick="return ValidateAddFormNote()">Добавить
             заметку
         </button>
         <button type="button" class="btn btn-secondary btn-sm" onclick="window.history.back()">Назад</button>
