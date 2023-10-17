@@ -17,22 +17,27 @@
 <body>
 <div layout:fragment="content">
 
-    <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show text-center message"
-         role="alert">
-        [[${message}]]
-        <button type="button" class="close btn-sm" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-
     <h5><p class="text-center">Редактировать заметку</p></h5>
 
         <form method="post" th:action="@{/notes/update}" th:object="${noteForm}">
             <input type="hidden" name="id" th:value="${note.id}">
             <input type="hidden" name="publishDate" th:value="${note.publishDate}">
-            <input type="hidden" name="typeOfNote" th:value="${note.getTypeOfNote()}">
 
             <div class="form-group">
+
+                <div class="col-md">
+                    <div class="form-floating">
+                        <select class="form-select" name="typeOfNote" id="typeOfNote" required>
+                            <option selected th:value="${note.getTypeOfNote()}" th:text="${note.getTypeOfNote().getTypeOfNoteTextDisplay()}"></option>
+                            <option th:each="typeOfNote : ${T(com.levdoc.medhapp.model.simplenote.TypeOfNote).values()}"
+                                    th:value="${typeOfNote}" th:text="${typeOfNote.getTypeOfNoteTextDisplay()}"></option>
+                        </select>
+                        <label for="typeOfNote">Тип заметки</label>
+                    </div>
+                </div>
+
+                <p></p>
+
                 <script type="text/javascript">
                     tinyMCE.init({
                         mode: "textareas",

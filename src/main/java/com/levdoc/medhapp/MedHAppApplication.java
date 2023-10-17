@@ -20,6 +20,5 @@ public class MedHAppApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         System.out.println("Its work ...");
         System.out.println("Application path: http://localhost:" + serverPort);
-
     }
 }
