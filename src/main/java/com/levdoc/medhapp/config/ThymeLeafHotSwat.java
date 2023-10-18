@@ -21,13 +21,13 @@ public class ThymeLeafHotSwat {
 
     @Bean
     public ITemplateResolver defaultTemplateResolver() {
+
         FileTemplateResolver fileTemplateResolver = new FileTemplateResolver();
 
         fileTemplateResolver.setSuffix(thymeleafProperties.getSuffix());
         fileTemplateResolver.setPrefix(templatesRoot);
         fileTemplateResolver.setTemplateMode(thymeleafProperties.getMode());
         fileTemplateResolver.setCacheable(thymeleafProperties.isCache());
-
 
         return fileTemplateResolver;
     }

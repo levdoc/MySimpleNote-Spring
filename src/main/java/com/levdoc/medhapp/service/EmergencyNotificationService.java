@@ -61,10 +61,6 @@ public class EmergencyNotificationService {
         emergencyNotificationRepository.save(em);
     }
 
-    public void hardDeleteEm(Long id) {
-        emergencyNotificationRepository.deleteById(id);
-    }
-
     public void softDeleteEm(Long id) {
         EmergencyNotification em = emergencyNotificationRepository.getEmergencyNotificationById(id);
         em.setDeleted(true);
@@ -75,9 +71,5 @@ public class EmergencyNotificationService {
         Patient patient = patientRepository.getReferenceById(id);
         patient.setDeleted(true);
         patientRepository.save(patient);
-    }
-
-    public void hardDeletePatient (Long id) {
-        patientRepository.deleteById(id);
     }
 }

@@ -30,7 +30,6 @@ import static org.aspectj.util.FileUtil.copyFile;
 @Slf4j
 @Service
 public class EmExcelExporter {
-
     private XSSFWorkbook workbook;
     private Sheet sheet;
     private File tmp;
@@ -69,7 +68,7 @@ public class EmExcelExporter {
             createCell(row, 33, patient.getDateOfConfirmationOfDiagnosis());
             createCell(row, 34, patient.getDiagnosisConfirmedByLaboratory());
             createCell(row, 35, patient.getDateOfWithdrawalOfTheDiagnosis());
-            createCell(row, 36, patient.getDateAndTimeOfHospitalization()); //TODO Исправить формат даты!!!
+            createCell(row, 36, patient.getDateAndTimeOfHospitalization());
             createCell(row, 37, emergencyNotification.getInnMo());
             createCell(row, 38, emergencyNotification.getMoName());
             createCell(row, 39, patient.getDateOfIllness());
@@ -84,9 +83,6 @@ public class EmExcelExporter {
         return tmp;
     }
 
-    /**
-     * Метод создает копию (UUID) шаблона и открывает его для внесения данных (java.io.File)
-     */
     private void openTemplateFileEM() {
         try {
             File original = new File("tmp/file/xlsxTemplateEm.xlsx");

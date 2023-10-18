@@ -18,7 +18,6 @@ public class SimpleNoteService {
     private final SimpleNoteRepository simpleNoteRepository;
     private final SimpleNoteMapper simpleNoteMapper;
 
-
     public SimpleNoteService(SimpleNoteRepository simpleNoteRepository,
                              SimpleNoteMapper simpleNoteMapper) {
         this.simpleNoteRepository = simpleNoteRepository;
@@ -28,7 +27,6 @@ public class SimpleNoteService {
     public void createNote (SimpleNoteDTO simpleNoteDTO) {
         SimpleNoteModel simpleNoteModel = simpleNoteMapper.DToToModel(simpleNoteDTO);
         simpleNoteModel.setPublishDate(LocalDate.now());
-
         simpleNoteRepository.save(simpleNoteModel);
     }
 

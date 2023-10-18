@@ -11,7 +11,6 @@ public class MedHAppApplication implements CommandLineRunner {
     @Value("${server.port}")
     private String serverPort;
 
-
     public static void main(String[] args) {
         SpringApplication.run(MedHAppApplication.class, args);
     }

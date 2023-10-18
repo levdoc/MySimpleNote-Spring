@@ -13,7 +13,6 @@ import java.util.List;
 
 @Service
 public class Mkb10Service {
-
     private final Mkb10Repository mkb10Repository;
     private final Mkb10Mapper mkb10Mapper;
 

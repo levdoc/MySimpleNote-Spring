@@ -13,15 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping()
 public class MainPageController {
-    private final SimpleNoteService simpleNoteService;
-
-    public MainPageController(SimpleNoteService simpleNoteService) {
-        this.simpleNoteService = simpleNoteService;
-    }
 
     @GetMapping()
     public String index() {
-        return "index";
+        return "redirect:/notes";
     }
 
 }
