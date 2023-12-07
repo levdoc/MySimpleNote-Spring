@@ -73,6 +73,7 @@ public class EmExcelExporter {
             createCell(row, 38, emergencyNotification.getMoName());
             createCell(row, 39, patient.getDateOfIllness());
             createCell(row, 40, patient.getDateOfTheApplication());
+            createCell(row,41,patient.getInfoOfPatient());
             rowIndex++;
         }
         closeTemplateFileEM();

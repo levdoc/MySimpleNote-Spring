@@ -4,6 +4,7 @@ import com.levdoc.medhapp.dto.EmergencyNotificationDTO;
 import com.levdoc.medhapp.dto.PatientDTO;
 import com.levdoc.medhapp.service.EmExcelExporter;
 import com.levdoc.medhapp.service.EmergencyNotificationService;
+import jakarta.validation.Valid;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -11,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
@@ -64,8 +66,20 @@ public class EmergencyNotificationController {
         return "em/patient/addPatient";
     }
 
+//    @PostMapping("/patient/add")
+//    public String addPatientToEm(@Valid @ModelAttribute PatientDTO patientDTO, BindingResult bindingResult) {
+//
+//        if (bindingResult.hasErrors()) {
+//            return "em/patient/addPatient";
+//        }
+//
+//        emergencyNotificationService.addPatientToEmergencyNotification(patientDTO);
+//        return "redirect:/em/patient/list/" + patientDTO.getIdOfEmergencyNotification();
+//    }
+
     @PostMapping("/patient/add")
     public String addPatientToEm(@ModelAttribute PatientDTO patientDTO) {
+
         emergencyNotificationService.addPatientToEmergencyNotification(patientDTO);
         return "redirect:/em/patient/list/" + patientDTO.getIdOfEmergencyNotification();
     }

@@ -28,6 +28,7 @@
                     <div class="form-floating">
                         <input name="surname" type="text" class="form-control" id="surname" placeholder="Фамилия"
                                required>
+<!--                        <input name="surname" type="text" class="form-control" id="surname" placeholder="Фамилия">-->
                         <label for="surname">Фамилия пациента</label>
                         <div class="invalid-feedback">Обязательное поле для заполнения</div>
                     </div>
@@ -50,7 +51,11 @@
                         <div class="invalid-feedback">Обязательное поле для заполнения</div>
                     </div>
                 </div>
+            </div>
 
+            <br>
+
+            <div class="mt-auto row">
                 <div class="col-md">
                     <div class="form-floating">
                         <input name="dateOfBirth" type="date" class="form-control" id="dateOfBirth"
@@ -72,210 +77,232 @@
                     </div>
                 </div>
 
-                <div class="mt-3 row g-2">
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <input name="municipality" type="text" class="form-control" id="municipality"
-                                   placeholder="Район">
-                            <label for="municipality">Район</label>
-                        </div>
-                    </div>
-
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <input name="community" type="text" class="form-control" id="community"
-                                   placeholder="Населенный пункт" required>
-                            <label for="community">Населенный пункт</label>
-                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                        </div>
-                    </div>
-
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <input name="street" type="text" class="form-control" id="street"
-                                   placeholder="Улица" required>
-                            <label for="street">Улица</label>
-                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                        </div>
-                    </div>
-
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <input name="houseNumber" type="text" class="form-control" id="houseNumber"
-                                   placeholder="Номер дома">
-                            <label for="houseNumber">Номер дома</label>
-                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                        </div>
-                    </div>
-
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <input name="apartmentNumber" type="text" class="form-control" id="apartmentNumber"
-                                   placeholder="Номер квартиры">
-                            <label for="apartmentNumber">Номер квартиры</label>
-                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                        </div>
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input name="patientPhoneNumber" type="text" class="form-control" id="patientPhoneNumber"
+                               placeholder="Номер телефона">
+                        <label for="patientPhoneNumber">Номер телефона</label>
+                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
                     </div>
                 </div>
-
-                <div class="mt-3 row g-2">
-
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <input name="placeOfStudy" type="text" class="form-control" id="placeOfStudy"
-                                   placeholder="Наименование места работы/учебы">
-                            <label for="placeOfStudy">Наименование места работы/учебы</label>
-                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                        </div>
-                    </div>
-
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <input name="dateOfSchoolVisit" type="date" class="form-control" id="dateOfSchoolVisit"
-                                   placeholder="Дата последнего посещения">
-                            <label for="dateOfSchoolVisit">Дата последнего посещения</label>
-                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                        </div>
-                    </div>
-
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <select class="form-select" name="socialGroup" id="socialGroup" required>
-                                <option selected value="default">Выберите социальную группу</option>
-                                <option th:each="socialGroup : ${T(com.levdoc.medhapp.model.notification.SocialGroupEnum).values()}"
-                                        th:value="${socialGroup}"
-                                        th:text="${socialGroup.getTypeOfSocialGroup()}"></option>
-                            </select>
-                            <label for="socialGroup">Социальная группа</label>
-                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="mt-3 row g-2">
-
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <select class="form-select" name="typeOfDiagnosis" id="typeOfDiagnosis" required>
-                                <option selected value="default">Тип диагноза</option>
-                                <option th:each="typeOfDiagnosis : ${T(com.levdoc.medhapp.model.notification.TypeOfDiagnosisEnum).values()}"
-                                        th:value="${typeOfDiagnosis}"
-                                        th:text="${typeOfDiagnosis.getTypeOfDiagnosis()}"></option>
-                            </select>
-                            <label for="typeOfDiagnosis">Тип диагноза</label>
-                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-3 row g-2">
-
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <input name="mkb10CodeOfDisease" type="text" class="form-control" id="mkb10CodeOfDisease"
-                                   placeholder="Код МКБ Диагоза" required>
-                            <label for="mkb10CodeOfDisease">Код МКБ Диагоза</label>
-                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                        </div>
-                    </div>
-
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <input name="dateOfDiagnosis" type="date" class="form-control" id="dateOfDiagnosis"
-                                   placeholder="Дата установки диагноза" required>
-                            <label for="dateOfDiagnosis">Дата установки диагноза</label>
-                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                        </div>
-                    </div>
-
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <input name="mkb10CodeOfDiseaseRefined" type="text" class="form-control"
-                                   id="mkb10CodeOfDiseaseRefined"
-                                   placeholder="Код МКБ УТОЧНЕННЫЙ">
-                            <label for="mkb10CodeOfDiseaseRefined">Код МКБ УТОЧНЕННЫЙ</label>
-                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                        </div>
-                    </div>
-
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <input name="dateOfConfirmationOfDiagnosis" type="date" class="form-control"
-                                   id="dateOfConfirmationOfDiagnosis"
-                                   placeholder="Дата подтверждения диагноза">
-                            <label for="dateOfConfirmationOfDiagnosis">Дата подтверждения диагноза</label>
-                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                        </div>
-                    </div>
-
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <select class="form-select" name="diagnosisConfirmedByLaboratory"
-                                    id="diagnosisConfirmedByLaboratory">
-<!--                                <option selected value="default">Лаб. подтвержден</option>-->
-                                <option th:each="diagnosisConfirmedByLaboratory : ${T(com.levdoc.medhapp.model.notification.LaboratoryConfirmationEnum).values()}"
-                                        th:value="${diagnosisConfirmedByLaboratory}"
-                                        th:text="${diagnosisConfirmedByLaboratory.getLaboratoryConfirmation()}"></option>
-                            </select>
-                            <label for="sex">Лаб. подтвержден</label>
-                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                        </div>
-                    </div>
-
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <input name="dateOfWithdrawalOfTheDiagnosis" type="date" class="form-control"
-                                   id="dateOfWithdrawalOfTheDiagnosis"
-                                   placeholder="Дата отмены диагноза">
-                            <label for="dateOfWithdrawalOfTheDiagnosis">Дата отмены диагноза</label>
-                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="mt-3 row g-2">
-
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <input name="dateAndTimeOfHospitalization" type="datetime-local" class="form-control"
-                                   id="dateAndTimeOfHospitalization"
-                                   placeholder="Дата/время госпитализации" required>
-                            <label for="dateAndTimeOfHospitalization">Дата/время госпитализации</label>
-                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                        </div>
-                    </div>
-
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <input name="dateOfIllness" type="date" class="form-control"
-                                   id="dateOfIllness"
-                                   placeholder="Дата заболевания" required>
-                            <label for="dateOfIllness">Дата заболевания</label>
-                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                        </div>
-                    </div>
-
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <input name="dateOfTheApplication" type="date" class="form-control"
-                                   id="dateOfTheApplication"
-                                   placeholder="Дата обращения" required>
-                            <label for="dateOfTheApplication">Дата обращения</label>
-                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                        </div>
-                    </div>
-
-                </div>
-
             </div>
-
-            <br>
-            <br>
 
             <div class="mt-3 row g-2">
-                <button type="submit" class="btn btn-primary btn-sm">Добавить пациента</button>
-                <button type="button" class="btn btn-secondary btn-sm" onclick="window.history.back()">Назад</button>
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input name="municipality" type="text" class="form-control" id="municipality"
+                               placeholder="Район">
+                        <label for="municipality">Район</label>
+                    </div>
+                </div>
+
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input name="community" type="text" class="form-control" id="community"
+                               placeholder="Населенный пункт" required>
+                        <label for="community">Населенный пункт</label>
+                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    </div>
+                </div>
+
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input name="street" type="text" class="form-control" id="street"
+                               placeholder="Улица" required>
+                        <label for="street">Улица</label>
+                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    </div>
+                </div>
+
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input name="houseNumber" type="text" class="form-control" id="houseNumber"
+                               placeholder="Номер дома">
+                        <label for="houseNumber">Номер дома</label>
+                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    </div>
+                </div>
+
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input name="apartmentNumber" type="text" class="form-control" id="apartmentNumber"
+                               placeholder="Номер квартиры">
+                        <label for="apartmentNumber">Номер квартиры</label>
+                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    </div>
+                </div>
             </div>
+
+            <div class="mt-3 row g-2">
+
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input name="placeOfStudy" type="text" class="form-control" id="placeOfStudy"
+                               placeholder="Наименование места работы/учебы">
+                        <label for="placeOfStudy">Наименование места работы/учебы</label>
+                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    </div>
+                </div>
+
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input name="dateOfSchoolVisit" type="date" class="form-control" id="dateOfSchoolVisit"
+                               placeholder="Дата последнего посещения">
+                        <label for="dateOfSchoolVisit">Дата последнего посещения</label>
+                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    </div>
+                </div>
+
+                <div class="col-md">
+                    <div class="form-floating">
+                        <select class="form-select" name="socialGroup" id="socialGroup" required>
+                            <option selected value="default">Выберите социальную группу</option>
+                            <option th:each="socialGroup : ${T(com.levdoc.medhapp.model.notification.SocialGroupEnum).values()}"
+                                    th:value="${socialGroup}"
+                                    th:text="${socialGroup.getTypeOfSocialGroup()}"></option>
+                        </select>
+                        <label for="socialGroup">Социальная группа</label>
+                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="mt-3 row g-2">
+
+                <div class="col-md">
+                    <div class="form-floating">
+                        <select class="form-select" name="typeOfDiagnosis" id="typeOfDiagnosis" required>
+                            <option selected value="default">Тип диагноза</option>
+                            <option th:each="typeOfDiagnosis : ${T(com.levdoc.medhapp.model.notification.TypeOfDiagnosisEnum).values()}"
+                                    th:value="${typeOfDiagnosis}"
+                                    th:text="${typeOfDiagnosis.getTypeOfDiagnosis()}"></option>
+                        </select>
+                        <label for="typeOfDiagnosis">Тип диагноза</label>
+                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-3 row g-2">
+
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input name="mkb10CodeOfDisease" type="text" class="form-control" id="mkb10CodeOfDisease"
+                               placeholder="Код МКБ Диагоза" required>
+                        <label for="mkb10CodeOfDisease">Код МКБ Диагоза</label>
+                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    </div>
+                </div>
+
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input name="dateOfDiagnosis" type="date" class="form-control" id="dateOfDiagnosis"
+                               placeholder="Дата установки диагноза" required>
+                        <label for="dateOfDiagnosis">Дата установки диагноза</label>
+                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    </div>
+                </div>
+
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input name="mkb10CodeOfDiseaseRefined" type="text" class="form-control"
+                               id="mkb10CodeOfDiseaseRefined"
+                               placeholder="Код МКБ УТОЧНЕННЫЙ">
+                        <label for="mkb10CodeOfDiseaseRefined">Код МКБ УТОЧНЕННЫЙ</label>
+                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    </div>
+                </div>
+
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input name="dateOfConfirmationOfDiagnosis" type="date" class="form-control"
+                               id="dateOfConfirmationOfDiagnosis"
+                               placeholder="Дата подтверждения диагноза">
+                        <label for="dateOfConfirmationOfDiagnosis">Дата подтверждения диагноза</label>
+                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    </div>
+                </div>
+
+                <div class="col-md">
+                    <div class="form-floating">
+                        <select class="form-select" name="diagnosisConfirmedByLaboratory"
+                                id="diagnosisConfirmedByLaboratory">
+                            <!--                                <option selected value="default">Лаб. подтвержден</option>-->
+                            <option th:each="diagnosisConfirmedByLaboratory : ${T(com.levdoc.medhapp.model.notification.LaboratoryConfirmationEnum).values()}"
+                                    th:value="${diagnosisConfirmedByLaboratory}"
+                                    th:text="${diagnosisConfirmedByLaboratory.getLaboratoryConfirmation()}"></option>
+                        </select>
+                        <label for="sex">Лаб. подтвержден</label>
+                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    </div>
+                </div>
+
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input name="dateOfWithdrawalOfTheDiagnosis" type="date" class="form-control"
+                               id="dateOfWithdrawalOfTheDiagnosis"
+                               placeholder="Дата отмены диагноза">
+                        <label for="dateOfWithdrawalOfTheDiagnosis">Дата отмены диагноза</label>
+                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="mt-3 row g-2">
+
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input name="dateAndTimeOfHospitalization" type="datetime-local" class="form-control"
+                               id="dateAndTimeOfHospitalization"
+                               placeholder="Дата/время госпитализации" required>
+                        <label for="dateAndTimeOfHospitalization">Дата/время госпитализации</label>
+                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    </div>
+                </div>
+
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input name="dateOfIllness" type="date" class="form-control"
+                               id="dateOfIllness"
+                               placeholder="Дата заболевания" required>
+                        <label for="dateOfIllness">Дата заболевания</label>
+                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    </div>
+                </div>
+
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input name="dateOfTheApplication" type="date" class="form-control"
+                               id="dateOfTheApplication"
+                               placeholder="Дата обращения" required>
+                        <label for="dateOfTheApplication">Дата обращения</label>
+                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-3 row g-2">
+                <div class="col-md">
+                    <div class="form-floating">
+                        <textarea rows="4" name="infoOfPatient" type="text" class="form-control"
+                                  id="infoOfPatient"
+                                  placeholder="Дополнительная информация" required></textarea>
+                        <label for="dateOfTheApplication">Дополнительная информация</label>
+                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <br>
+        <br>
+
+        <div class="mt-3 row g-2">
+            <button type="submit" class="btn btn-primary btn-sm">Добавить пациента</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="window.history.back()">Назад</button>
+        </div>
 
     </form>
 

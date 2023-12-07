@@ -35,7 +35,7 @@ public class EmergencyNotification extends GenericModel {
     @Column(name = "is_download")
     private Boolean isDownload;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Column(name = "patient_list")
     private List<Patient> patientList;
 

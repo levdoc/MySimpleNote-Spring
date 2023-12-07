@@ -90,5 +90,8 @@ public class Patient extends GenericModel {
     @Column(name = "date of the application", nullable = false) // Дата обращения (в формате ДД-ММ-ГГГГ)
     private LocalDate dateOfTheApplication;
 
+    @Column(name="info_of_patient")
+    private String infoOfPatient;
+
 
 }

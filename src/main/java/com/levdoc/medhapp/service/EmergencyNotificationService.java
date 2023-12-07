@@ -31,12 +31,20 @@ public class EmergencyNotificationService {
         this.patientRepository = patientRepository;
     }
 
+    /**
+     * Метод получает все "пакеты" экстренных извещений из базы данных.
+     * @return Возвращает коллекция List содержащую экстренные извещения, если записей нет, возвращает Collections.emptyList()
+     */
     public List<EmergencyNotificationDTO> getAllEmergencyNotification() {
         List<EmergencyNotificationDTO> result = emergencyNotificationMapper.
                 modelsToDTOs(emergencyNotificationRepository.findAll());
         return result == null ? Collections.emptyList() : result;
     }
 
+    /**
+     * Метод сохраняет "пакет" экстренного извещения в базе данных.
+     * @param emergencyNotificationDTO
+     */
     public void createEmergencyNotification(EmergencyNotificationDTO emergencyNotificationDTO) {
         EmergencyNotification em = emergencyNotificationMapper.dtoToModel(emergencyNotificationDTO);
         em.setCreatedWhen(LocalDateTime.now());
@@ -48,11 +56,20 @@ public class EmergencyNotificationService {
         emergencyNotificationRepository.save(em);
     }
 
+    /**
+     * Метод возвращает один "пакет" экстренного извещения по его ID
+     * @param id - ID экстренного извещения
+     * @return - возвращает emergencyNotification полученный по ID
+     */
     public EmergencyNotificationDTO getOneById (Long id) {
         return emergencyNotificationMapper.modelToDTO(
                 emergencyNotificationRepository.getEmergencyNotificationById(id));
     }
 
+    /**
+     * Метод
+     * @param patientDTO
+     */
     public void addPatientToEmergencyNotification(PatientDTO patientDTO) {
         EmergencyNotification em = emergencyNotificationRepository
                 .getEmergencyNotificationById(patientDTO.getIdOfEmergencyNotification());

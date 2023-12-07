@@ -4,6 +4,9 @@ import com.levdoc.medhapp.model.notification.LaboratoryConfirmationEnum;
 import com.levdoc.medhapp.model.notification.SexEnum;
 import com.levdoc.medhapp.model.notification.SocialGroupEnum;
 import com.levdoc.medhapp.model.notification.TypeOfDiagnosisEnum;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +20,9 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 public class PatientDTO extends GenericModelDTO {
+
+//    @NotNull(message = "Введите фамилию пациента!")
+//    @Size(min = 2, max = 30)
     private String surname;
 
     private String name;
@@ -83,5 +89,8 @@ public class PatientDTO extends GenericModelDTO {
     private LocalDate dateOfTheApplication;
 
     private Long idOfEmergencyNotification;
+
+    // Дополнительная информация, данные о противоэпидемических мероприятиях
+    private String infoOfPatient;
 
 }
