@@ -1,6 +1,5 @@
 package com.levdoc.medhapp.model.notification;
 
-import com.levdoc.medhapp.model.GenericModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

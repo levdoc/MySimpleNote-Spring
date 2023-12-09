@@ -5,7 +5,6 @@ import com.levdoc.medhapp.dto.PatientDTO;
 import com.levdoc.medhapp.mapper.EmergencyNotificationMapper;
 import com.levdoc.medhapp.mapper.PatientMapper;
 import com.levdoc.medhapp.model.notification.EmergencyNotification;
-import com.levdoc.medhapp.model.notification.Patient;
 import com.levdoc.medhapp.repository.EmergencyNotificationRepository;
 import com.levdoc.medhapp.repository.PatientRepository;
 import org.springframework.stereotype.Service;
