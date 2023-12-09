@@ -2,6 +2,8 @@ package com.levdoc.medhapp.controller.mvc;
 
 import com.levdoc.medhapp.dto.EmergencyNotificationDTO;
 import com.levdoc.medhapp.dto.PatientDTO;
+import com.levdoc.medhapp.dto.SimpleNoteDTO;
+import com.levdoc.medhapp.model.simplenote.TypeOfNote;
 import com.levdoc.medhapp.service.EmExcelExporter;
 import com.levdoc.medhapp.service.EmergencyNotificationService;
 import jakarta.validation.Valid;
@@ -19,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -66,17 +69,6 @@ public class EmergencyNotificationController {
         return "em/patient/addPatient";
     }
 
-//    @PostMapping("/patient/add")
-//    public String addPatientToEm(@Valid @ModelAttribute PatientDTO patientDTO, BindingResult bindingResult) {
-//
-//        if (bindingResult.hasErrors()) {
-//            return "em/patient/addPatient";
-//        }
-//
-//        emergencyNotificationService.addPatientToEmergencyNotification(patientDTO);
-//        return "redirect:/em/patient/list/" + patientDTO.getIdOfEmergencyNotification();
-//    }
-
     @PostMapping("/patient/add")
     public String addPatientToEm(@ModelAttribute PatientDTO patientDTO) {
 
@@ -87,13 +79,13 @@ public class EmergencyNotificationController {
     @GetMapping("{emId}/patient/delete/{id}")
     public String deletePatientOfEm(@PathVariable Long emId,
                                     @PathVariable Long id) {
-        emergencyNotificationService.softDeletePatient(id);
+        emergencyNotificationService.hardDeletePatientById(id);
         return "redirect:/em/patient/list/" + emId;
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteNote(@PathVariable Long id) {
-        emergencyNotificationService.softDeleteEm(id);
+    public String deleteEm(@PathVariable Long id) {
+        emergencyNotificationService.hardDeleteEm(id);
         return "redirect:/em";
     }
 
@@ -127,6 +119,21 @@ public class EmergencyNotificationController {
         headers.add("Cache-Control", "no-cache, no-store");
         headers.add("Expires", "0");
         return headers;
+    }
+
+    @GetMapping("/update/{id}")
+    public String updatePatientEm(@PathVariable Long id,
+                                  Model model) {
+        model.addAttribute("patient", emergencyNotificationService.getOnePatientById(id));
+        return "em/patient/updatePatient";
+    }
+
+    @PostMapping("/patient/update")
+    public String updateNote(@ModelAttribute("patientForm") PatientDTO patientDTO,
+                             Model model) {
+
+        emergencyNotificationService.updatePatient(patientDTO);
+        return "redirect:/em";
     }
 
 }

@@ -52,7 +52,6 @@ public class EmergencyNotificationService {
         em.setMoName("ГБУЗРК \"РДИКБ\"");
         em.setDeleted(false);
         em.setIsSend(false);
-        em.setIsDownload(false);
         emergencyNotificationRepository.save(em);
     }
 
@@ -78,15 +77,20 @@ public class EmergencyNotificationService {
         emergencyNotificationRepository.save(em);
     }
 
-    public void softDeleteEm(Long id) {
-        EmergencyNotification em = emergencyNotificationRepository.getEmergencyNotificationById(id);
-        em.setDeleted(true);
-        emergencyNotificationRepository.save(em);
+    public void hardDeleteEm(Long id) {
+        emergencyNotificationRepository.deleteById(id);
     }
 
-    public void softDeletePatient (Long id) {
-        Patient patient = patientRepository.getReferenceById(id);
-        patient.setDeleted(true);
-        patientRepository.save(patient);
+    public void hardDeletePatientById(Long id) {
+        patientRepository.deleteById(id);
     }
+
+    public PatientDTO getOnePatientById(Long id) {
+        return patientMapper.modelToDto(patientRepository.getReferenceById(id));
+    }
+
+    public void updatePatient (PatientDTO patientDTO) {
+        patientRepository.save(patientMapper.dtoToModel(patientDTO));
+    }
+
 }

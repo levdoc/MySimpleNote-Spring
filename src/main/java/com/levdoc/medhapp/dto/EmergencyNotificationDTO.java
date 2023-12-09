@@ -17,7 +17,6 @@ public class EmergencyNotificationDTO extends GenericModelDTO{
     private String docFio;
     private String docPhoneNumber;
     private Boolean isSend;
-    private Boolean isDownload;
     private List<PatientDTO> patientList;
 
 }

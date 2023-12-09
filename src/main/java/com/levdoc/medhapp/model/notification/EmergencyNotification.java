@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -15,7 +16,20 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmergencyNotification extends GenericModel {
+public class EmergencyNotification {
+    @Id
+    @Column
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Column(name = "created_when")
+    private LocalDateTime createdWhen;
+
+    @Column(name = "send_when")
+    private LocalDateTime sendWhen;
+
+    @Column(name = "is_deleted", columnDefinition = "boolean default false")
+    private boolean isDeleted;
 
     @Column(name = "inn_mo")
     private Long innMo;
@@ -32,10 +46,8 @@ public class EmergencyNotification extends GenericModel {
     @Column(name = "is_send")
     private Boolean isSend;
 
-    @Column(name = "is_download")
-    private Boolean isDownload;
-
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JoinColumn(name = "emergency_notification_id")
     @Column(name = "patient_list")
     private List<Patient> patientList;
 

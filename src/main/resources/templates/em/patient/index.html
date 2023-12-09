@@ -51,9 +51,9 @@
                     <td th:text="${#temporals.format(patient.getDateOfConfirmationOfDiagnosis(), 'dd-MM-yyyy')}"></td>
                     <td th:text="${patient.getDiagnosisConfirmedByLaboratory().getLaboratoryConfirmation()}"></td>
                     <td>
-<!--                        <a class="btn btn-sm btn-warning"-->
-<!--                           th:href="'/notes/update/' + ${patient.id}">Редактировать</a>-->
-<!--                        <p></p>-->
+                        <a class="btn btn-sm btn-warning"
+                           th:href="'/em/update/' + ${patient.id}">Редактировать</a>
+                        <p></p>
                         <a class="btn btn-sm btn-outline-danger"
                            th:href="'/em/'+${em.id}+'/patient/delete/' + ${patient.id}"
                            onclick="return confirm('Вы действительно хотите удалить пациента?')">Удалить</a>
