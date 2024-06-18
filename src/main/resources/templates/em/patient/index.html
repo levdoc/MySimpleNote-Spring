@@ -13,55 +13,57 @@
 <body>
 
 <div layout:fragment="content">
+    <div class="container">
 
-    <br>
-    <div>
-        <a class="btn btn-sm btn-warning"
-           th:href="'/em/patient/add/' + ${em.id}">Добавить пациента</a>
-    </div>
+        <br>
+        <div>
+            <a class="btn btn-sm btn-warning"
+               th:href="'/em/patient/add/' + ${em.id}">Добавить пациента</a>
+        </div>
 
-    <br>
+        <br>
 
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered">
-            <thead class="table-primary">
-            <tr>
-                <th class="">Фамилия</th>
-                <th class="">Имя</th>
-                <th class="">Отчество</th>
-                <th class="">Социальная группа</th>
-                <th class="">Тип диагноза</th>
-                <th class="">Код МКБ Диагоза</th>
-                <th class="">Код МКБ УТОЧНЕННЫЙ</th>
-                <th class="">Дата подтверждения</th>
-                <th class="">Лаб. подтвержден</th>
-                <th class="">Функции</th>
-            </tr>
-            </thead>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="table-primary">
+                <tr>
+                    <th class="">Фамилия</th>
+                    <th class="">Имя</th>
+                    <th class="">Отчество</th>
+                    <th class="">Социальная группа</th>
+                    <th class="">Тип диагноза</th>
+                    <th class="">Код МКБ Диагоза</th>
+                    <th class="">Код МКБ УТОЧНЕННЫЙ</th>
+                    <th class="">Дата подтверждения</th>
+                    <th class="">Лаб. подтвержден</th>
+                    <th class="">Функции</th>
+                </tr>
+                </thead>
 
-            <tr th:each="patient:${em.getPatientList()}">
-                <a th:if="!${patient.isDeleted()}">
-                    <td th:text="${patient.getSurname()}"></td>
-                    <td th:text="${patient.getName()}"></td>
-                    <td th:text="${patient.getPatronymic()}"></td>
-                    <td th:text="${patient.getSocialGroup().getTypeOfSocialGroup()}"></td>
-                    <td th:text="${patient.getTypeOfDiagnosis().getTypeOfDiagnosis()}"></td>
-                    <td th:text="${patient.getMkb10CodeOfDisease()}"></td>
-                    <td th:text="${patient.getMkb10CodeOfDiseaseRefined()}"></td>
-                    <td th:text="${#temporals.format(patient.getDateOfConfirmationOfDiagnosis(), 'dd-MM-yyyy')}"></td>
-                    <td th:text="${patient.getDiagnosisConfirmedByLaboratory().getLaboratoryConfirmation()}"></td>
-                    <td>
-                        <a class="btn btn-sm btn-warning"
-                           th:href="'/em/update/' + ${patient.id}">Редактировать</a>
-                        <p></p>
-                        <a class="btn btn-sm btn-outline-danger"
-                           th:href="'/em/'+${em.id}+'/patient/delete/' + ${patient.id}"
-                           onclick="return confirm('Вы действительно хотите удалить пациента?')">Удалить</a>
-                        <p></p>
-                    </td>
-                </a>
-            </tr>
-        </table>
+                <tr th:each="patient:${em.getPatientList()}">
+                    <a th:if="!${patient.isDeleted()}">
+                        <td th:text="${patient.getSurname()}"></td>
+                        <td th:text="${patient.getName()}"></td>
+                        <td th:text="${patient.getPatronymic()}"></td>
+                        <td th:text="${patient.getSocialGroup().getTypeOfSocialGroup()}"></td>
+                        <td th:text="${patient.getTypeOfDiagnosis().getTypeOfDiagnosis()}"></td>
+                        <td th:text="${patient.getMkb10CodeOfDisease()}"></td>
+                        <td th:text="${patient.getMkb10CodeOfDiseaseRefined()}"></td>
+                        <td th:text="${#temporals.format(patient.getDateOfConfirmationOfDiagnosis(), 'dd-MM-yyyy')}"></td>
+                        <td th:text="${patient.getDiagnosisConfirmedByLaboratory().getLaboratoryConfirmation()}"></td>
+                        <td>
+                            <a class="btn btn-sm btn-warning"
+                               th:href="'/em/update/' + ${patient.id}">Редактировать</a>
+                            <p></p>
+                            <a class="btn btn-sm btn-outline-danger"
+                               th:href="'/em/'+${em.id}+'/patient/delete/' + ${patient.id}"
+                               onclick="return confirm('Вы действительно хотите удалить пациента?')">Удалить</a>
+                            <p></p>
+                        </td>
+                    </a>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
 

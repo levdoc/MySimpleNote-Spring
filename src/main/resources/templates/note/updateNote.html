@@ -16,8 +16,9 @@
 
 <body>
 <div layout:fragment="content">
+    <div class="container">
 
-    <h5><p class="text-center">Редактировать заметку</p></h5>
+        <h5><p class="text-center">Редактировать заметку</p></h5>
 
         <form method="post" th:action="@{/notes/update}" th:object="${noteForm}">
             <input type="hidden" name="id" th:value="${note.id}">
@@ -28,9 +29,11 @@
                 <div class="col-md">
                     <div class="form-floating">
                         <select class="form-select" name="typeOfNote" id="typeOfNote" required>
-                            <option selected th:value="${note.getTypeOfNote()}" th:text="${note.getTypeOfNote().getTypeOfNoteTextDisplay()}"></option>
+                            <option selected th:value="${note.getTypeOfNote()}"
+                                    th:text="${note.getTypeOfNote().getTypeOfNoteTextDisplay()}"></option>
                             <option th:each="typeOfNote : ${T(com.levdoc.medhapp.model.simplenote.TypeOfNote).values()}"
-                                    th:value="${typeOfNote}" th:text="${typeOfNote.getTypeOfNoteTextDisplay()}"></option>
+                                    th:value="${typeOfNote}"
+                                    th:text="${typeOfNote.getTypeOfNoteTextDisplay()}"></option>
                         </select>
                         <label for="typeOfNote">Тип заметки</label>
                     </div>
@@ -59,13 +62,14 @@
 
             </div>
 
-    <br>
-    <br>
+            <br>
+            <br>
 
-    <button type="submit" class="btn btn-primary btn-sm">Сохранить изменения</button>
-    <button type="button" class="btn btn-secondary btn-sm" onclick="window.history.back()">Назад</button>
+            <button type="submit" class="btn btn-primary btn-sm">Сохранить изменения</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="window.history.back()">Назад</button>
 
-    </form>
+        </form>
+    </div>
 </div>
 
 </body>

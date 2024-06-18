@@ -13,291 +13,316 @@
 <body>
 <div layout:fragment="content">
 
-    <br>
+    <div class="container">
 
-    <h5><p class="text-center">Добавить пациента</p></h5>
+        <br>
 
-    <form method="post" th:action="@{/em/patient/update}" th:object="${patientForm}">
-        <input type="hidden" name="id" th:value="${patient.getId()}">
-        <input type="hidden" name="sendWhen" th:value="${patient.getSendWhen()}">
-        <input type="hidden" name="createdWhen" th:value="${patient.getCreatedWhen()}">
+        <h5><p class="text-center">Добавить пациента</p></h5>
 
-        <div class="form-group mt-auto">
+        <form method="post" th:action="@{/em/patient/update}" th:object="${patientForm}">
+            <input type="hidden" name="id" th:value="${patient.getId()}">
+            <input type="hidden" name="sendWhen" th:value="${patient.getSendWhen()}">
+            <input type="hidden" name="createdWhen" th:value="${patient.getCreatedWhen()}">
 
-            <div class="mt-auto row">
-                <div class="col-md">
-                    <div class="form-floating">
-                        <input name="surname" type="text" class="form-control" id="surname"
-                               th:value="${patient.getSurname()}" required>
-                        <label for="surname">Фамилия пациента</label>
-                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
+            <div class="form-group mt-auto">
+
+                <div class="mt-auto row">
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input name="surname" type="text" class="form-control" id="surname"
+                                   th:value="${patient.getSurname()}" required>
+                            <label for="surname">Фамилия пациента</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input name="name" type="text" class="form-control" id="name"
+                                   th:value="${patient.getName()}" placeholder="Имя" required>
+                            <label for="name">Имя</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input name="patronymic" type="text" class="form-control" id="patronymic"
+                                   th:value="${patient.getPatronymic()}" placeholder="Отчество">
+                            <label for="patronymic">Отчество</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="col-md">
-                    <div class="form-floating">
-                        <input name="name" type="text" class="form-control" id="name"
-                               th:value="${patient.getName()}" placeholder="Имя" required>
-                        <label for="name">Имя</label>
-                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                <br>
+
+                <div class="mt-auto row">
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input name="dateOfBirth" type="date" class="form-control" id="dateOfBirth"
+                                   th:value="${patient.getDateOfBirth()}" placeholder="Дата рождения" required>
+                            <label for="dateOfBirth">Дата рождения</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <select class="form-select" name="sex" id="sex" required>
+                                <option selected th:value="${patient.getSex()}" th:text="${patient.getSex().getSex()}">
+                                    Пол пациента
+                                </option>
+                                <option th:each="sex : ${T(com.levdoc.medhapp.model.notification.SexEnum).values()}"
+                                        th:value="${sex}" th:text="${sex.getSex()}"></option>
+                            </select>
+                            <label for="sex">Пол пациента</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input name="patientPhoneNumber" type="text" class="form-control" id="patientPhoneNumber"
+                                   th:value="${patient.getPatientPhoneNumber()}" placeholder="Номер телефона">
+                            <label for="patientPhoneNumber">Номер телефона</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="col-md">
-                    <div class="form-floating">
-                        <input name="patronymic" type="text" class="form-control" id="patronymic"
-                               th:value="${patient.getPatronymic()}" placeholder="Отчество">
-                        <label for="patronymic">Отчество</label>
-                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                <div class="mt-3 row g-2">
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input name="municipality" type="text" class="form-control" id="municipality"
+                                   th:value="${patient.getMunicipality()}" placeholder="Район">
+                            <label for="municipality">Район</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input name="community" type="text" class="form-control" id="community"
+                                   th:value="${patient.getCommunity()}" placeholder="Населенный пункт" required>
+                            <label for="community">Населенный пункт</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input name="street" type="text" class="form-control" id="street"
+                                   th:value="${patient.getStreet()}" placeholder="Улица" required>
+                            <label for="street">Улица</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input name="houseNumber" type="text" class="form-control" id="houseNumber"
+                                   th:value="${patient.getHouseNumber()}" placeholder="Номер дома">
+                            <label for="houseNumber">Номер дома</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input name="apartmentNumber" type="text" class="form-control" id="apartmentNumber"
+                                   th:value="${patient.getApartmentNumber()}" placeholder="Номер квартиры">
+                            <label for="apartmentNumber">Номер квартиры</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
                     </div>
                 </div>
+
+                <div class="mt-3 row g-2">
+
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input name="placeOfStudy" type="text" class="form-control" id="placeOfStudy"
+                                   th:value="${patient.getPlaceOfStudy()}"
+                                   placeholder="Наименование места работы/учебы">
+                            <label for="placeOfStudy">Наименование места работы/учебы</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input name="dateOfSchoolVisit" type="date" class="form-control" id="dateOfSchoolVisit"
+                                   th:value="${patient.getDateOfSchoolVisit()}" placeholder="Дата последнего посещения">
+                            <label for="dateOfSchoolVisit">Дата последнего посещения</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <select class="form-select" name="socialGroup" id="socialGroup" required>
+                                <option selected th:value="${patient.getSocialGroup()}"
+                                        th:text="${patient.getSocialGroup().getTypeOfSocialGroup()}">Выберите социальную
+                                    группу
+                                </option>
+                                <option th:each="socialGroup : ${T(com.levdoc.medhapp.model.notification.SocialGroupEnum).values()}"
+                                        th:value="${socialGroup}"
+                                        th:text="${socialGroup.getTypeOfSocialGroup()}"></option>
+                            </select>
+                            <label for="socialGroup">Социальная группа</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="mt-3 row g-2">
+
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <select class="form-select" name="typeOfDiagnosis" id="typeOfDiagnosis" required>
+                                <option selected th:value="${patient.getTypeOfDiagnosis()}"
+                                        th:text="${patient.getTypeOfDiagnosis().getTypeOfDiagnosis()}">Тип диагноза
+                                </option>
+                                <option th:each="typeOfDiagnosis : ${T(com.levdoc.medhapp.model.notification.TypeOfDiagnosisEnum).values()}"
+                                        th:value="${typeOfDiagnosis}"
+                                        th:text="${typeOfDiagnosis.getTypeOfDiagnosis()}"></option>
+                            </select>
+                            <label for="typeOfDiagnosis">Тип диагноза</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-3 row g-2">
+
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input name="mkb10CodeOfDisease" type="text" class="form-control" id="mkb10CodeOfDisease"
+                                   th:value="${patient.getMkb10CodeOfDisease()}" placeholder="Код МКБ Диагоза" required>
+                            <label for="mkb10CodeOfDisease">Код МКБ Диагоза</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input name="dateOfDiagnosis" type="date" class="form-control" id="dateOfDiagnosis"
+                                   th:value="${patient.getDateOfDiagnosis()}" placeholder="Дата установки диагноза"
+                                   required>
+                            <label for="dateOfDiagnosis">Дата установки диагноза</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input name="mkb10CodeOfDiseaseRefined" type="text" class="form-control"
+                                   id="mkb10CodeOfDiseaseRefined"
+                                   th:value="${patient.getMkb10CodeOfDiseaseRefined()}"
+                                   placeholder="Код МКБ УТОЧНЕННЫЙ">
+                            <label for="mkb10CodeOfDiseaseRefined">Код МКБ УТОЧНЕННЫЙ</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input name="dateOfConfirmationOfDiagnosis" type="date" class="form-control"
+                                   id="dateOfConfirmationOfDiagnosis"
+                                   th:value="${patient.getDateOfConfirmationOfDiagnosis()}"
+                                   placeholder="Дата подтверждения диагноза">
+                            <label for="dateOfConfirmationOfDiagnosis">Дата подтверждения диагноза</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <select class="form-select" name="diagnosisConfirmedByLaboratory"
+                                    id="diagnosisConfirmedByLaboratory">
+                                <option selected th:value="${patient.getDiagnosisConfirmedByLaboratory()}"
+                                        th:text="${patient.getDiagnosisConfirmedByLaboratory().getLaboratoryConfirmation()}"></option>
+                                <option th:each="diagnosisConfirmedByLaboratory : ${T(com.levdoc.medhapp.model.notification.LaboratoryConfirmationEnum).values()}"
+                                        th:value="${diagnosisConfirmedByLaboratory}"
+                                        th:text="${diagnosisConfirmedByLaboratory.getLaboratoryConfirmation()}"></option>
+                            </select>
+                            <label for="diagnosisConfirmedByLaboratory">Лаб. подтвержден</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input name="dateOfWithdrawalOfTheDiagnosis" type="date" class="form-control"
+                                   id="dateOfWithdrawalOfTheDiagnosis"
+                                   th:value="${patient.getDateOfWithdrawalOfTheDiagnosis()}"
+                                   placeholder="Дата отмены диагноза">
+                            <label for="dateOfWithdrawalOfTheDiagnosis">Дата отмены диагноза</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="mt-3 row g-2">
+
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input name="dateAndTimeOfHospitalization" type="datetime-local" class="form-control"
+                                   id="dateAndTimeOfHospitalization"
+                                   th:value="${patient.getDateAndTimeOfHospitalization()}"
+                                   placeholder="Дата/время госпитализации" required>
+                            <label for="dateAndTimeOfHospitalization">Дата/время госпитализации</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input name="dateOfIllness" type="date" class="form-control" id="dateOfIllness"
+                                   th:value="${patient.getDateOfIllness()}" placeholder="Дата заболевания" required>
+                            <label for="dateOfIllness">Дата заболевания</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input name="dateOfTheApplication" type="date" class="form-control"
+                                   id="dateOfTheApplication"
+                                   th:value="${patient.getDateOfTheApplication()}" placeholder="Дата обращения"
+                                   required>
+                            <label for="dateOfTheApplication">Дата обращения</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mt-3 row g-2">
+                    <div class="col-md">
+                        <div class="form-floating">
+                        <textarea rows="4" name="infoOfPatient" type="text" class="form-control" id="infoOfPatient"
+                                  th:text="${patient.getInfoOfPatient()}"
+                                  placeholder="Дополнительная информация"></textarea>
+                            <label for="dateOfTheApplication">Дополнительная информация</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <br>
-
-            <div class="mt-auto row">
-                <div class="col-md">
-                    <div class="form-floating">
-                        <input name="dateOfBirth" type="date" class="form-control" id="dateOfBirth"
-                               th:value="${patient.getDateOfBirth()}" placeholder="Дата рождения" required>
-                        <label for="dateOfBirth">Дата рождения</label>
-                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                    </div>
-                </div>
-
-                <div class="col-md">
-                    <div class="form-floating">
-                        <select class="form-select" name="sex" id="sex" required>
-                            <option selected th:value="${patient.getSex()}" th:text="${patient.getSex().getSex()}">Пол пациента</option>
-                            <option th:each="sex : ${T(com.levdoc.medhapp.model.notification.SexEnum).values()}"
-                                    th:value="${sex}" th:text="${sex.getSex()}"></option>
-                        </select>
-                        <label for="sex">Пол пациента</label>
-                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                    </div>
-                </div>
-
-                <div class="col-md">
-                    <div class="form-floating">
-                        <input name="patientPhoneNumber" type="text" class="form-control" id="patientPhoneNumber"
-                               th:value="${patient.getPatientPhoneNumber()}" placeholder="Номер телефона">
-                        <label for="patientPhoneNumber">Номер телефона</label>
-                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                    </div>
-                </div>
-            </div>
+            <br>
 
             <div class="mt-3 row g-2">
-                <div class="col-md">
-                    <div class="form-floating">
-                        <input name="municipality" type="text" class="form-control" id="municipality"
-                               th:value="${patient.getMunicipality()}" placeholder="Район">
-                        <label for="municipality">Район</label>
-                    </div>
-                </div>
-
-                <div class="col-md">
-                    <div class="form-floating">
-                        <input name="community" type="text" class="form-control" id="community"
-                               th:value="${patient.getCommunity()}" placeholder="Населенный пункт" required>
-                        <label for="community">Населенный пункт</label>
-                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                    </div>
-                </div>
-
-                <div class="col-md">
-                    <div class="form-floating">
-                        <input name="street" type="text" class="form-control" id="street"
-                               th:value="${patient.getStreet()}" placeholder="Улица" required>
-                        <label for="street">Улица</label>
-                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                    </div>
-                </div>
-
-                <div class="col-md">
-                    <div class="form-floating">
-                        <input name="houseNumber" type="text" class="form-control" id="houseNumber"
-                               th:value="${patient.getHouseNumber()}" placeholder="Номер дома">
-                        <label for="houseNumber">Номер дома</label>
-                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                    </div>
-                </div>
-
-                <div class="col-md">
-                    <div class="form-floating">
-                        <input name="apartmentNumber" type="text" class="form-control" id="apartmentNumber"
-                               th:value="${patient.getApartmentNumber()}" placeholder="Номер квартиры">
-                        <label for="apartmentNumber">Номер квартиры</label>
-                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                    </div>
-                </div>
+                <button type="submit" class="btn btn-primary btn-sm">Обновить пациента</button>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="window.history.back()">Назад</button>
             </div>
 
-            <div class="mt-3 row g-2">
+        </form>
 
-                <div class="col-md">
-                    <div class="form-floating">
-                        <input name="placeOfStudy" type="text" class="form-control" id="placeOfStudy"
-                               th:value="${patient.getPlaceOfStudy()}" placeholder="Наименование места работы/учебы">
-                        <label for="placeOfStudy">Наименование места работы/учебы</label>
-                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                    </div>
-                </div>
-
-                <div class="col-md">
-                    <div class="form-floating">
-                        <input name="dateOfSchoolVisit" type="date" class="form-control" id="dateOfSchoolVisit"
-                               th:value="${patient.getDateOfSchoolVisit()}" placeholder="Дата последнего посещения">
-                        <label for="dateOfSchoolVisit">Дата последнего посещения</label>
-                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                    </div>
-                </div>
-
-                <div class="col-md">
-                    <div class="form-floating">
-                        <select class="form-select" name="socialGroup" id="socialGroup" required>
-                            <option selected th:value="${patient.getSocialGroup()}" th:text="${patient.getSocialGroup().getTypeOfSocialGroup()}">Выберите социальную группу</option>
-                            <option th:each="socialGroup : ${T(com.levdoc.medhapp.model.notification.SocialGroupEnum).values()}"
-                                    th:value="${socialGroup}"
-                                    th:text="${socialGroup.getTypeOfSocialGroup()}"></option>
-                        </select>
-                        <label for="socialGroup">Социальная группа</label>
-                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="mt-3 row g-2">
-
-                <div class="col-md">
-                    <div class="form-floating">
-                        <select class="form-select" name="typeOfDiagnosis" id="typeOfDiagnosis" required>
-                            <option selected th:value="${patient.getTypeOfDiagnosis()}" th:text="${patient.getTypeOfDiagnosis().getTypeOfDiagnosis()}">Тип диагноза</option>
-                            <option th:each="typeOfDiagnosis : ${T(com.levdoc.medhapp.model.notification.TypeOfDiagnosisEnum).values()}"
-                                    th:value="${typeOfDiagnosis}"
-                                    th:text="${typeOfDiagnosis.getTypeOfDiagnosis()}"></option>
-                        </select>
-                        <label for="typeOfDiagnosis">Тип диагноза</label>
-                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-3 row g-2">
-
-                <div class="col-md">
-                    <div class="form-floating">
-                        <input name="mkb10CodeOfDisease" type="text" class="form-control" id="mkb10CodeOfDisease"
-                               th:value="${patient.getMkb10CodeOfDisease()}" placeholder="Код МКБ Диагоза" required>
-                        <label for="mkb10CodeOfDisease">Код МКБ Диагоза</label>
-                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                    </div>
-                </div>
-
-                <div class="col-md">
-                    <div class="form-floating">
-                        <input name="dateOfDiagnosis" type="date" class="form-control" id="dateOfDiagnosis"
-                               th:value="${patient.getDateOfDiagnosis()}" placeholder="Дата установки диагноза" required>
-                        <label for="dateOfDiagnosis">Дата установки диагноза</label>
-                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                    </div>
-                </div>
-
-                <div class="col-md">
-                    <div class="form-floating">
-                        <input name="mkb10CodeOfDiseaseRefined" type="text" class="form-control" id="mkb10CodeOfDiseaseRefined"
-                               th:value="${patient.getMkb10CodeOfDiseaseRefined()}" placeholder="Код МКБ УТОЧНЕННЫЙ">
-                        <label for="mkb10CodeOfDiseaseRefined">Код МКБ УТОЧНЕННЫЙ</label>
-                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                    </div>
-                </div>
-
-                <div class="col-md">
-                    <div class="form-floating">
-                        <input name="dateOfConfirmationOfDiagnosis" type="date" class="form-control" id="dateOfConfirmationOfDiagnosis"
-                               th:value="${patient.getDateOfConfirmationOfDiagnosis()}" placeholder="Дата подтверждения диагноза">
-                        <label for="dateOfConfirmationOfDiagnosis">Дата подтверждения диагноза</label>
-                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                    </div>
-                </div>
-
-                <div class="col-md">
-                    <div class="form-floating">
-                        <select class="form-select" name="diagnosisConfirmedByLaboratory" id="diagnosisConfirmedByLaboratory">
-                            <option selected th:value="${patient.getDiagnosisConfirmedByLaboratory()}" th:text="${patient.getDiagnosisConfirmedByLaboratory().getLaboratoryConfirmation()}"></option>
-                            <option th:each="diagnosisConfirmedByLaboratory : ${T(com.levdoc.medhapp.model.notification.LaboratoryConfirmationEnum).values()}"
-                                    th:value="${diagnosisConfirmedByLaboratory}"
-                                    th:text="${diagnosisConfirmedByLaboratory.getLaboratoryConfirmation()}"></option>
-                        </select>
-                        <label for="diagnosisConfirmedByLaboratory">Лаб. подтвержден</label>
-                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                    </div>
-                </div>
-
-                <div class="col-md">
-                    <div class="form-floating">
-                        <input name="dateOfWithdrawalOfTheDiagnosis" type="date" class="form-control" id="dateOfWithdrawalOfTheDiagnosis"
-                               th:value="${patient.getDateOfWithdrawalOfTheDiagnosis()}" placeholder="Дата отмены диагноза">
-                        <label for="dateOfWithdrawalOfTheDiagnosis">Дата отмены диагноза</label>
-                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="mt-3 row g-2">
-
-                <div class="col-md">
-                    <div class="form-floating">
-                        <input name="dateAndTimeOfHospitalization" type="datetime-local" class="form-control" id="dateAndTimeOfHospitalization"
-                               th:value="${patient.getDateAndTimeOfHospitalization()}" placeholder="Дата/время госпитализации" required>
-                        <label for="dateAndTimeOfHospitalization">Дата/время госпитализации</label>
-                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                    </div>
-                </div>
-
-                <div class="col-md">
-                    <div class="form-floating">
-                        <input name="dateOfIllness" type="date" class="form-control" id="dateOfIllness"
-                               th:value="${patient.getDateOfIllness()}" placeholder="Дата заболевания" required>
-                        <label for="dateOfIllness">Дата заболевания</label>
-                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                    </div>
-                </div>
-
-                <div class="col-md">
-                    <div class="form-floating">
-                        <input name="dateOfTheApplication" type="date" class="form-control" id="dateOfTheApplication"
-                              th:value="${patient.getDateOfTheApplication()}" placeholder="Дата обращения" required>
-                        <label for="dateOfTheApplication">Дата обращения</label>
-                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="mt-3 row g-2">
-                <div class="col-md">
-                    <div class="form-floating">
-                        <textarea rows="4" name="infoOfPatient" type="text" class="form-control" id="infoOfPatient"
-                                  th:text="${patient.getInfoOfPatient()}" placeholder="Дополнительная информация"></textarea>
-                        <label for="dateOfTheApplication">Дополнительная информация</label>
-                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <br>
-        <br>
-
-        <div class="mt-3 row g-2">
-            <button type="submit" class="btn btn-primary btn-sm">Обновить пациента</button>
-            <button type="button" class="btn btn-secondary btn-sm" onclick="window.history.back()">Назад</button>
-        </div>
-
-    </form>
-
+    </div>
 </div>
 
 </body>

@@ -17,60 +17,64 @@
 <body>
 <div layout:fragment="content">
 
-    <br>
+    <div class="container">
 
-    <h5><p class="text-center">Добавить заметку</p></h5>
+        <br>
 
-    <form name="addNoteForm" action="#" method="post" th:action="@{/notes/add}" th:object="${noteForm}">
+        <h5><p class="text-center">Добавить заметку</p></h5>
 
-        <div class="form-group">
+        <form name="addNoteForm" action="#" method="post" th:action="@{/notes/add}" th:object="${noteForm}">
 
-            <div class="col-md">
-                <div class="form-floating">
-                    <select class="form-select" name="typeOfNote" id="typeOfNote" required>
-                        <option value="default">Выберете тип заметки из списка</option>
-                        <option th:each="typeOfNote : ${T(com.levdoc.medhapp.model.simplenote.TypeOfNote).values()}"
-                                th:value="${typeOfNote}" th:text="${typeOfNote.getTypeOfNoteTextDisplay()}"></option>
-                    </select>
-                    <label for="typeOfNote">Тип заметки</label>
+            <div class="form-group">
+
+                <div class="col-md">
+                    <div class="form-floating">
+                        <select class="form-select" name="typeOfNote" id="typeOfNote" required>
+                            <option value="default">Выберете тип заметки из списка</option>
+                            <option th:each="typeOfNote : ${T(com.levdoc.medhapp.model.simplenote.TypeOfNote).values()}"
+                                    th:value="${typeOfNote}"
+                                    th:text="${typeOfNote.getTypeOfNoteTextDisplay()}"></option>
+                        </select>
+                        <label for="typeOfNote">Тип заметки</label>
+                    </div>
                 </div>
+
+                <label for="mainText" id="mainTextLabel"></label>
+
+                <script type="text/javascript">
+                    tinyMCE.init({
+                        mode: "textareas",
+                        theme: "silver",
+                        menubar: false,
+                        // language:"ru",
+                        // plugins: "autoresize, charmap, colorpicker, contextmenu, paste, print, preview," +
+                        //     "quickbar, save, searchreplace, table, textcolor, wordcount",
+
+                        setup: function (ed) {
+                            ed.on('keyup', function (e) {
+                                var count = CountCharacters();
+                                document.getElementById("character_count")
+                                    .innerHTML = "Введено символов: " + count;
+                            })
+                        }
+                    });
+                </script>
+
+                <textarea id="mainText" name="mainText" type="text" rows="10"></textarea>
+                <div id="character_count"></div>
+
             </div>
 
-            <label for="mainText" id="mainTextLabel"></label>
+            <br>
+            <br>
 
-            <script type="text/javascript">
-                tinyMCE.init({
-                    mode: "textareas",
-                    theme: "silver",
-                    menubar: false,
-                    // language:"ru",
-                    // plugins: "autoresize, charmap, colorpicker, contextmenu, paste, print, preview," +
-                    //     "quickbar, save, searchreplace, table, textcolor, wordcount",
+            <button type="submit" class="btn btn-primary btn-sm" onclick="return ValidateAddFormNote()">Добавить
+                заметку
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="window.history.back()">Назад</button>
+        </form>
 
-                    setup: function (ed) {
-                        ed.on('keyup', function (e) {
-                            var count = CountCharacters();
-                            document.getElementById("character_count")
-                                .innerHTML = "Введено символов: " + count;
-                        })
-                    }
-                });
-            </script>
-
-            <textarea id="mainText" name="mainText" type="text" rows="10"></textarea>
-            <div id="character_count"></div>
-
-        </div>
-
-        <br>
-        <br>
-
-        <button type="submit" class="btn btn-primary btn-sm" onclick="return ValidateAddFormNote()">Добавить
-            заметку
-        </button>
-        <button type="button" class="btn btn-secondary btn-sm" onclick="window.history.back()">Назад</button>
-    </form>
-
+    </div>
 </div>
 
 </body>
