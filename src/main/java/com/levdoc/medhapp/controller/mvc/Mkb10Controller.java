@@ -1,6 +1,6 @@
 package com.levdoc.medhapp.controller.mvc;
 
-import com.levdoc.medhapp.dto.Mkb10Dto;
+import com.levdoc.medhapp.model.mkb.Mkb10Model;
 import com.levdoc.medhapp.service.Mkb10Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,7 +26,7 @@ public class Mkb10Controller {
                                Model model) {
 
         PageRequest pageRequest = PageRequest.of(page-1, size);
-        Page<Mkb10Dto> mkb10Dtos = mkb10Service.getAllMkbCodePageable(pageRequest);
+        Page<Mkb10Model> mkb10Dtos = mkb10Service.getAllMkbCodePageable(pageRequest);
         model.addAttribute("mkb10code", mkb10Dtos);
         return "/mkb/indexMKB10";
     }

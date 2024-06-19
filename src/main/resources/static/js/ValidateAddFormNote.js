@@ -6,10 +6,8 @@ function ValidateAddFormNote() {
         return false;
     }
 
-    if (document.addNoteForm.typeOfNote.selectedIndex == 0 ) {
-        alert ( "Пожалуйста, выберите тип создаваемой заметки." );
+    if (document.addNoteForm.typeOfNote.selectedIndex === 0) {
+        alert("Пожалуйста, выберите тип создаваемой заметки.");
         return false;
     }
-
-    return;
 }

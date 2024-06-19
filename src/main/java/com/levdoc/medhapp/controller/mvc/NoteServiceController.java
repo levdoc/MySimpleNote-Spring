@@ -1,6 +1,6 @@
 package com.levdoc.medhapp.controller.mvc;
 
-import com.levdoc.medhapp.dto.SimpleNoteDTO;
+import com.levdoc.medhapp.model.simplenote.SimpleNoteModel;
 import com.levdoc.medhapp.model.simplenote.TypeOfNote;
 import com.levdoc.medhapp.service.SimpleNoteService;
 import lombok.extern.slf4j.Slf4j;
@@ -29,16 +29,18 @@ public class NoteServiceController {
     }
 
     @PostMapping("/add")
-    public String createNote(@ModelAttribute("noteForm") SimpleNoteDTO simpleNoteDTO,
+    public String createNote(@ModelAttribute("noteForm")SimpleNoteModel simpleNoteModel,
                              BindingResult bindingResult,
                              Model model) {
+
         if (bindingResult.hasErrors()) {
             log.error(bindingResult.getNestedPath() + " -> Ошибка добавления заметки, не указан тип заметки! Установлен тип по умолчанию!");
-            simpleNoteDTO.setTypeOfNote(TypeOfNote.OTHER);
-            model.addAttribute("note", simpleNoteDTO);
+            simpleNoteModel.setTypeOfNote(TypeOfNote.OTHER);
+            model.addAttribute("note", simpleNoteModel);
             return "note/updateNote";
         }
-        simpleNoteService.createNote(simpleNoteDTO);
+
+        simpleNoteService.createNote(simpleNoteModel);
         return "redirect:/notes";
     }
 
@@ -56,7 +58,7 @@ public class NoteServiceController {
 
         try {
             PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
-            Page<SimpleNoteDTO> notes;
+            Page<SimpleNoteModel> notes;
             if (keyword == null) {
                 notes = simpleNoteService.getAllNotePegable(pageRequest);
             } else {
@@ -77,20 +79,20 @@ public class NoteServiceController {
     }
 
     @PostMapping("/update")
-    public String updateNote(@ModelAttribute("updateNote") SimpleNoteDTO simpleNoteDTO,
+    public String updateNote(@ModelAttribute("updateNote") SimpleNoteModel simpleNoteModel,
                              BindingResult bindingResult,
                              Model model) {
 
-        simpleNoteDTO.setPublishDate(LocalDate.now());
+        simpleNoteModel.setPublishDate(LocalDate.now());
 
         if (bindingResult.hasErrors()) {
             log.error(bindingResult.getNestedPath());
-            simpleNoteDTO.setTypeOfNote(TypeOfNote.OTHER);
-            model.addAttribute("note", simpleNoteDTO);
+            simpleNoteModel.setTypeOfNote(TypeOfNote.OTHER);
+            model.addAttribute("note", simpleNoteModel);
             return "note/updateNote";
         }
 
-        simpleNoteService.updateNote(simpleNoteDTO);
+        simpleNoteService.updateNote(simpleNoteModel);
         return "redirect:/notes";
     }
 

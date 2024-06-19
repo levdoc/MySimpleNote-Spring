@@ -13,6 +13,9 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
+import static com.levdoc.medhapp.constants.EmergencyNotificationConstants.INN_MO;
+import static com.levdoc.medhapp.constants.EmergencyNotificationConstants.NAME_MO;
+
 @Service
 public class EmergencyNotificationService {
     private final EmergencyNotificationRepository emergencyNotificationRepository;
@@ -42,13 +45,13 @@ public class EmergencyNotificationService {
 
     /**
      * Метод сохраняет "пакет" экстренного извещения в базе данных.
-     * @param emergencyNotificationDTO
+     *
      */
     public void createEmergencyNotification(EmergencyNotificationDTO emergencyNotificationDTO) {
         EmergencyNotification em = emergencyNotificationMapper.dtoToModel(emergencyNotificationDTO);
         em.setCreatedWhen(LocalDateTime.now());
-        em.setInnMo(9102065701L);
-        em.setMoName("ГБУЗРК \"РДИКБ\"");
+        em.setInnMo(INN_MO);
+        em.setMoName(NAME_MO);
         em.setDeleted(false);
         em.setIsSend(false);
         emergencyNotificationRepository.save(em);
@@ -66,7 +69,7 @@ public class EmergencyNotificationService {
 
     /**
      * Метод
-     * @param patientDTO
+     *
      */
     public void addPatientToEmergencyNotification(PatientDTO patientDTO) {
         EmergencyNotification em = emergencyNotificationRepository
