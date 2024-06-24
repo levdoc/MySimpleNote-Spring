@@ -1,12 +1,7 @@
 package com.levdoc.medhapp.service;
 
 import com.levdoc.medhapp.constants.FileConstants;
-import com.levdoc.medhapp.dto.EmergencyNotificationDTO;
-import com.levdoc.medhapp.dto.PatientDTO;
-import com.levdoc.medhapp.model.notification.LaboratoryConfirmationEnum;
-import com.levdoc.medhapp.model.notification.SexEnum;
-import com.levdoc.medhapp.model.notification.SocialGroupEnum;
-import com.levdoc.medhapp.model.notification.TypeOfDiagnosisEnum;
+import com.levdoc.medhapp.model.notification.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
@@ -34,13 +29,13 @@ public class EmExcelExporter {
     private Sheet sheet;
     private File tmp;
 
-    private void writeXlsxFromEmDto(EmergencyNotificationDTO emergencyNotification) {
+    private void writeXlsxFromEmDto(EmergencyNotification emergencyNotification) {
         int rowIndex = FileConstants.START_ROW_INDEX;
 
         openTemplateFileEM();
         openSheetTemplate();
 
-        for (PatientDTO patient :
+        for (Patient patient :
                 emergencyNotification.getPatientList()) {
             Row row = sheet.getRow(rowIndex);
             createCell(row, 3, emergencyNotification.getInnMo());
@@ -79,7 +74,7 @@ public class EmExcelExporter {
         closeTemplateFileEM();
     }
 
-    public File getEmExcleFile(EmergencyNotificationDTO emergencyNotification) {
+    public File getEmExcleFile(EmergencyNotification emergencyNotification) {
         writeXlsxFromEmDto(emergencyNotification);
         return tmp;
     }

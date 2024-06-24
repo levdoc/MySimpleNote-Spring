@@ -1,7 +1,7 @@
 package com.levdoc.medhapp.controller.mvc;
 
-import com.levdoc.medhapp.dto.EmergencyNotificationDTO;
-import com.levdoc.medhapp.dto.PatientDTO;
+import com.levdoc.medhapp.model.notification.EmergencyNotification;
+import com.levdoc.medhapp.model.notification.Patient;
 import com.levdoc.medhapp.service.EmExcelExporter;
 import com.levdoc.medhapp.service.EmergencyNotificationService;
 import org.springframework.core.io.ByteArrayResource;
@@ -34,19 +34,19 @@ public class EmergencyNotificationController {
 
     @GetMapping
     public String getAllEmergencyNotification(Model model) {
-        List<EmergencyNotificationDTO> result = emergencyNotificationService.getAllEmergencyNotification();
+        List<EmergencyNotification> result = emergencyNotificationService.getAllEmergencyNotification();
         model.addAttribute("em", result);
         return "em/index";
     }
 
     @GetMapping("/addEm")
-    public String createNote() {
+    public String createEmergencyNotification() {
         return "em/addEm";
     }
 
     @PostMapping("/addEm")
-    public String createNote(@ModelAttribute("emForm") EmergencyNotificationDTO emergencyNotificationDTO) {
-        emergencyNotificationService.createEmergencyNotification(emergencyNotificationDTO);
+    public String createEmergencyNotification(@ModelAttribute("emForm") EmergencyNotification emergencyNotification) {
+        emergencyNotificationService.createEmergencyNotification(emergencyNotification);
         return "redirect:/em";
     }
 
@@ -65,10 +65,10 @@ public class EmergencyNotificationController {
     }
 
     @PostMapping("/patient/add")
-    public String addPatientToEm(@ModelAttribute PatientDTO patientDTO) {
+    public String addPatientToEm(@ModelAttribute Patient patient) {
 
-        emergencyNotificationService.addPatientToEmergencyNotification(patientDTO);
-        return "redirect:/em/patient/list/" + patientDTO.getIdOfEmergencyNotification();
+        emergencyNotificationService.addPatientToEmergencyNotification(patient);
+        return "redirect:/em/patient/list/" + patient.getIdOfEmergencyNotification();
     }
 
     @GetMapping("{emId}/patient/delete/{id}")
@@ -87,10 +87,11 @@ public class EmergencyNotificationController {
     @GetMapping(value = "/export/excel/{id}/download", produces = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseBody
     public ResponseEntity<Resource> downloadEMFile(@PathVariable Long id) {
+
         File resource;
         ByteArrayResource arrayResource;
 
-        EmergencyNotificationDTO em = emergencyNotificationService.getOneById(id);
+        EmergencyNotification em = emergencyNotificationService.getOneById(id);
 
         resource = excelExporter.getEmExcleFile(em);
 
@@ -124,9 +125,9 @@ public class EmergencyNotificationController {
     }
 
     @PostMapping("/patient/update")
-    public String updateNote(@ModelAttribute("patientForm") PatientDTO patientDTO) {
+    public String updatePatient(@ModelAttribute("patientForm") Patient patient) {
 
-        emergencyNotificationService.updatePatient(patientDTO);
+        emergencyNotificationService.updatePatient(patient);
         return "redirect:/em";
     }
 

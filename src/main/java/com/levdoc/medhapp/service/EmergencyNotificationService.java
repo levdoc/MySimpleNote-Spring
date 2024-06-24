@@ -1,10 +1,7 @@
 package com.levdoc.medhapp.service;
 
-import com.levdoc.medhapp.dto.EmergencyNotificationDTO;
-import com.levdoc.medhapp.dto.PatientDTO;
-import com.levdoc.medhapp.mapper.EmergencyNotificationMapper;
-import com.levdoc.medhapp.mapper.PatientMapper;
 import com.levdoc.medhapp.model.notification.EmergencyNotification;
+import com.levdoc.medhapp.model.notification.Patient;
 import com.levdoc.medhapp.repository.EmergencyNotificationRepository;
 import com.levdoc.medhapp.repository.PatientRepository;
 import org.springframework.stereotype.Service;
@@ -19,17 +16,11 @@ import static com.levdoc.medhapp.constants.EmergencyNotificationConstants.NAME_M
 @Service
 public class EmergencyNotificationService {
     private final EmergencyNotificationRepository emergencyNotificationRepository;
-    private final EmergencyNotificationMapper emergencyNotificationMapper;
-    private final PatientMapper patientMapper;
     private final PatientRepository patientRepository;
 
     public EmergencyNotificationService(EmergencyNotificationRepository emergencyNotificationRepository,
-                                        EmergencyNotificationMapper emergencyNotificationMapper,
-                                        PatientMapper patientMapper,
                                         PatientRepository patientRepository) {
         this.emergencyNotificationRepository = emergencyNotificationRepository;
-        this.emergencyNotificationMapper = emergencyNotificationMapper;
-        this.patientMapper = patientMapper;
         this.patientRepository = patientRepository;
     }
 
@@ -37,9 +28,8 @@ public class EmergencyNotificationService {
      * Метод получает все "пакеты" экстренных извещений из базы данных.
      * @return Возвращает коллекция List содержащую экстренные извещения, если записей нет, возвращает Collections.emptyList()
      */
-    public List<EmergencyNotificationDTO> getAllEmergencyNotification() {
-        List<EmergencyNotificationDTO> result = emergencyNotificationMapper.
-                modelsToDTOs(emergencyNotificationRepository.findAll());
+    public List<EmergencyNotification> getAllEmergencyNotification() {
+        List<EmergencyNotification> result = emergencyNotificationRepository.findAll();
         return result == null ? Collections.emptyList() : result;
     }
 
@@ -47,8 +37,8 @@ public class EmergencyNotificationService {
      * Метод сохраняет "пакет" экстренного извещения в базе данных.
      *
      */
-    public void createEmergencyNotification(EmergencyNotificationDTO emergencyNotificationDTO) {
-        EmergencyNotification em = emergencyNotificationMapper.dtoToModel(emergencyNotificationDTO);
+    public void createEmergencyNotification(EmergencyNotification emergencyNotification) {
+        EmergencyNotification em = emergencyNotification;
         em.setCreatedWhen(LocalDateTime.now());
         em.setInnMo(INN_MO);
         em.setMoName(NAME_MO);
@@ -62,20 +52,19 @@ public class EmergencyNotificationService {
      * @param id - ID экстренного извещения
      * @return - возвращает emergencyNotification полученный по ID
      */
-    public EmergencyNotificationDTO getOneById (Long id) {
-        return emergencyNotificationMapper.modelToDTO(
-                emergencyNotificationRepository.getEmergencyNotificationById(id));
+    public EmergencyNotification getOneById(Long id) {
+        return emergencyNotificationRepository.getEmergencyNotificationById(id);
     }
 
     /**
      * Метод
      *
      */
-    public void addPatientToEmergencyNotification(PatientDTO patientDTO) {
+    public void addPatientToEmergencyNotification(Patient patient) {
         EmergencyNotification em = emergencyNotificationRepository
-                .getEmergencyNotificationById(patientDTO.getIdOfEmergencyNotification());
+                .getEmergencyNotificationById(patient.getIdOfEmergencyNotification());
 
-        em.getPatientList().add(patientRepository.save(patientMapper.dtoToModel(patientDTO)));
+        em.getPatientList().add(patientRepository.save(patient));
         emergencyNotificationRepository.save(em);
     }
 
@@ -87,12 +76,12 @@ public class EmergencyNotificationService {
         patientRepository.deleteById(id);
     }
 
-    public PatientDTO getOnePatientById(Long id) {
-        return patientMapper.modelToDto(patientRepository.getReferenceById(id));
+    public Patient getOnePatientById(Long id) {
+        return patientRepository.getReferenceById(id);
     }
 
-    public void updatePatient (PatientDTO patientDTO) {
-        patientRepository.save(patientMapper.dtoToModel(patientDTO));
+    public void updatePatient(Patient patient) {
+        patientRepository.save(patient);
     }
 
 }

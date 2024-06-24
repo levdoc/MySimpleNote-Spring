@@ -1,7 +1,9 @@
 package com.levdoc.medhapp.model.notification;
 
 import com.levdoc.medhapp.model.GenericModel;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -93,5 +95,7 @@ public class Patient extends GenericModel {
     @Column(name="info_of_patient")
     private String infoOfPatient;
 
+    @Column(name = "id_of_em")
+    private Long idOfEmergencyNotification;
 
 }
