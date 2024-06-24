@@ -38,13 +38,12 @@ public class EmergencyNotificationService {
      *
      */
     public void createEmergencyNotification(EmergencyNotification emergencyNotification) {
-        EmergencyNotification em = emergencyNotification;
-        em.setCreatedWhen(LocalDateTime.now());
-        em.setInnMo(INN_MO);
-        em.setMoName(NAME_MO);
-        em.setDeleted(false);
-        em.setIsSend(false);
-        emergencyNotificationRepository.save(em);
+        emergencyNotification.setCreatedWhen(LocalDateTime.now());
+        emergencyNotification.setInnMo(INN_MO);
+        emergencyNotification.setMoName(NAME_MO);
+        emergencyNotification.setDeleted(false);
+        emergencyNotification.setIsSend(false);
+        emergencyNotificationRepository.save(emergencyNotification);
     }
 
     /**
