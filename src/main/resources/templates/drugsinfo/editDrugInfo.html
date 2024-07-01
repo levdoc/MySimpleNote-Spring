@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить лекарственный препарат</title>
+    <script src="/webjars/tinymce/5.0.9/tinymce.min.js"></script>
+
+</head>
+
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <br>
+        <h5><p class="text-center">Добавить лекарственный препарат</p></h5>
+        <form method="post" th:action="@{/drugs/info/add}" th:object="${drugForm}">
+            <div class="form-group">
+                <div class="mt-3 row g-2">
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input class="form-control" id="name" name="name" required type="text">
+                            <label for="name">Наименование ЛС</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
+                    </div>
+
+                    <label for="description" id="descriptioninfo"></label>
+
+                    <script type="text/javascript">
+                        tinyMCE.init({
+                            mode: "textareas",
+                            theme: "silver",
+                            menubar: false,
+                            // language:"ru",
+                            // plugins: "autoresize, charmap, colorpicker, contextmenu, paste, print, preview," +
+                            //     "quickbar, save, searchreplace, table, textcolor, wordcount",
+                        });
+                    </script>
+
+                    <textarea id="description" name="description" rows="10" type="text"></textarea>
+
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="mt-3 row g-2">
+                <button class="btn btn-primary btn-sm" type="submit">Добавить лекарственный препарат</button>
+                <button class="btn btn-secondary btn-sm" onclick="window.history.back()" type="button">Назад</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+</body>
+
+</html>

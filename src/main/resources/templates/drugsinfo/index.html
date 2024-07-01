@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html
+        layout:decorate="~{layout}"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Лекарственные препараты</title>
+
+</head>
+
+<body>
+
+<div layout:fragment="content">
+    <div class="container">
+
+        <br>
+
+        <div>
+            <a class="btn btn-primary btn-sm" th:href="@{/drugs/info/add}">Добавить препарат</a>
+        </div>
+
+        <br>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="table-primary">
+                <tr>
+                    <th class="">Номер</th>
+                    <th class="">Наименование ЛС</th>
+                </tr>
+                </thead>
+
+                <tr th:each="drug:${drugs}">
+                    <td th:text="${drug.getId()}"></td>
+                    <td th:text="${drug.getName()}"></td>
+                    </a>
+
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
