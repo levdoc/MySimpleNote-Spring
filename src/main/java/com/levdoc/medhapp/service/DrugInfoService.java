@@ -4,6 +4,7 @@ import com.levdoc.medhapp.model.drugsinfo.DrugInfoModel;
 import com.levdoc.medhapp.repository.DrugInfoModelRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,4 +21,12 @@ public class DrugInfoService {
         return resultList == null ? Collections.emptyList() : resultList;
     }
 
+    public void addDrugInfo(DrugInfoModel drugInfoModel)  {
+        drugInfoModel.setPublishDate(LocalDate.now());
+        drugInfoModelRepository.save(drugInfoModel);
+    }
+
+    public DrugInfoModel getOneDrugInfo(Long id) {
+        return drugInfoModelRepository.findOneById(id);
+    }
 }

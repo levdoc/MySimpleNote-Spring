@@ -22,13 +22,24 @@
                     <div class="col-md">
                         <div class="form-floating">
                             <input class="form-control" id="name" name="name" required type="text">
-                            <label for="name">Наименование ЛС</label>
+                            <label for="name">Торговое наименование</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
+                        <br>
+                        <div class="form-floating">
+                            <input class="form-control" id="nameForm" name="nameForm" required type="text">
+                            <label for="name">Форма выпуска</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
+                        <br>
+                        <div class="form-floating">
+                            <input class="form-control" id="nameMnn" name="nameMnn" required type="text">
+                            <label for="name">МНН</label>
                             <div class="invalid-feedback">Обязательное поле для заполнения</div>
                         </div>
                     </div>
 
-                    <label for="description" id="descriptioninfo"></label>
-
+                    <label for="description" id="descriptionlabel">Описание</label>
                     <script type="text/javascript">
                         tinyMCE.init({
                             mode: "textareas",
@@ -39,9 +50,22 @@
                             //     "quickbar, save, searchreplace, table, textcolor, wordcount",
                         });
                     </script>
-
                     <textarea id="description" name="description" rows="10" type="text"></textarea>
 
+                    <label for="contraindicationInfo" id="contraindicationInfoLabel">
+                        Противопоказания и предупреждения
+                    </label>
+                    <script type="text/javascript">
+                        tinyMCE.init({
+                            mode: "textareas",
+                            theme: "silver",
+                            menubar: false,
+                            // language:"ru",
+                            // plugins: "autoresize, charmap, colorpicker, contextmenu, paste, print, preview," +
+                            //     "quickbar, save, searchreplace, table, textcolor, wordcount",
+                        });
+                    </script>
+                    <textarea id="contraindicationInfo" name="contraindicationInfo" rows="10" type="text"></textarea>
                 </div>
             </div>
             <br>
@@ -51,10 +75,7 @@
                 <button class="btn btn-secondary btn-sm" onclick="window.history.back()" type="button">Назад</button>
             </div>
         </form>
-
     </div>
 </div>
-
 </body>
-
 </html>

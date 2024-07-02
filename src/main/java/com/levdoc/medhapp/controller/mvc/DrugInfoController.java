@@ -6,12 +6,7 @@ import com.levdoc.medhapp.service.DrugInfoService;
 import groovy.util.logging.Log4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.time.LocalDate;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @Log4j
@@ -19,12 +14,9 @@ import java.time.LocalDate;
 public class DrugInfoController {
     private final DrugInfoService drugInfoService;
 
-    private final DrugInfoModelRepository drugInfoModelRepository;
-
     public DrugInfoController(DrugInfoService drugInfoService,
                               DrugInfoModelRepository drugInfoModelRepository) {
         this.drugInfoService = drugInfoService;
-        this.drugInfoModelRepository = drugInfoModelRepository;
     }
 
     @GetMapping
@@ -40,9 +32,16 @@ public class DrugInfoController {
 
     @PostMapping("/add")
     public String addDrugs(@ModelAttribute("drugForm") DrugInfoModel drugInfoModel) {
-        drugInfoModel.setPublishDate(LocalDate.now());
-        drugInfoModelRepository.save(drugInfoModel);
+        drugInfoModel.setIsActive(true);
+        drugInfoModel.setIsDeleted(false);
+        drugInfoService.addDrugInfo(drugInfoModel);
         return "redirect:/drugs/info";
+    }
+
+    @GetMapping("/view/{id}")
+    public String getOneDrugInfo(@PathVariable Long id, Model model) {
+        model.addAttribute("drugInfo", drugInfoService.getOneDrugInfo(id));
+        return "drugsinfo/viewDrugInfo";
     }
 
 
