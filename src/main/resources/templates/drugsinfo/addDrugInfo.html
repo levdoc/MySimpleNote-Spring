@@ -33,6 +33,12 @@
                         </div>
                         <br>
                         <div class="form-floating">
+                            <input class="form-control" id="drugReg" name="drugReg" required type="text">
+                            <label for="name">Регистрационое удостоение</label>
+                            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                        </div>
+                        <br>
+                        <div class="form-floating">
                             <input class="form-control" id="nameMnn" name="nameMnn" required type="text">
                             <label for="name">МНН</label>
                             <div class="invalid-feedback">Обязательное поле для заполнения</div>
@@ -45,7 +51,7 @@
                             mode: "textareas",
                             theme: "silver",
                             menubar: false,
-                            // language:"ru",
+                            language:"ru",
                             // plugins: "autoresize, charmap, colorpicker, contextmenu, paste, print, preview," +
                             //     "quickbar, save, searchreplace, table, textcolor, wordcount",
                         });

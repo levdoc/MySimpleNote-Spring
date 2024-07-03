@@ -9,8 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Entity
 @Table(name = "drug_info")
 @Getter
@@ -29,8 +27,8 @@ public class DrugInfoModel extends GenericModel {
     private String description; // Описание лекарственного препарата
     @Column(name = "contraindication_info", nullable = false,  length = 5000)
     private String contraindicationInfo; // Противопоказания и предупреждения
-    @Column(name = "publish_date", nullable = false)
-    private LocalDate publishDate; // Дата публикации
+    @Column(name =  "drug_reg", length  =  100)
+    private String drugReg;  // Регистрационный номер лекарственного препарата
     @Column(name = "is_active")
     private Boolean isActive; // Флаг активности
     @Column(name = "is_deleted")

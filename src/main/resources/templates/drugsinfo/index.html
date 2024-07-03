@@ -23,7 +23,8 @@
                 </tr>
                 </thead>
                 <tr th:each="drug:${drugs}">
-                    <td><a th:href="'/drugs/info/view/' + ${drug.getId()}" th:text="${drug.getName} + ' (' + ${drug.getNameForm} + ')'"></td>
+                    <td><a th:href="'/drugs/info/view/' + ${drug.getId()}" th:text="${drug.getName}
+                    + ' (' + ${drug.getNameForm} + ') РН: ' + ${drug.getDrugReg()}"></td>
                 </tr>
             </table>
         </div>
